@@ -1,6 +1,35 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="PunPun 0.6.0-beta language documentation"><title>Packages and PPX · PunPun</title><link rel="stylesheet" href="assets/site.css"></head><body><header><a class="brand" href="index.html"><img src="assets/punpun-mark.svg" alt="PunPun">PunPun <span>0.6.0-beta</span></a><div class="head-actions"><input id="search" placeholder="Search docs…" aria-label="Search documentation"><button id="theme" aria-label="Toggle theme">◐</button></div></header><div class="layout"><aside><nav><a href="async.html">Async and await</a><a href="errors.html">Compiler Errors</a><a href="getting-started.html">Getting Started</a><a href="gui.html">GUI</a><a href="index.html">PunPun</a><a href="injection.html">Foreign Injection</a><a href="json.html">JSON</a><a href="language.html">Language Basics</a><a href="memory.html">Native Memory</a><a href="objects.html">Objects, Structs, and Contracts</a><a href="packages.html">Packages and PPX</a><a href="performance.html">Performance</a><a href="requests.html">HTTP Requests</a><a href="self-hosting.html">Self-hosting Compiler</a><a href="toolchains.html">Native Toolchains</a></nav><div id="results"></div></aside><main><h1>Packages and PPX</h1>
-<p>PunPun uses one manifest model: <code>Punpun.toml</code> plus <code>Punpun.lock</code>. <code>pp</code> owns compilation while <code>ppx</code> handles package discovery/materialization.</p>
-<div class="code-wrap"><button class="copy" aria-label="Copy code">Copy</button><pre><code class="language-sh">ppx search requests
-ppx add requests
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="PunPun 0.6.0-beta language documentation"><title>Packages and PPX · PunPun</title><link rel="stylesheet" href="assets/site.css"></head>
+<body><header><a class="brand" href="index.html"><img src="assets/punpun-mark.svg" alt="PunPun"><span class="brand-name">PunPun</span><span class="version">0.6.0-beta</span></a><div class="head-actions"><input id="search" placeholder="Search docs…" aria-label="Search documentation"><button id="theme" aria-label="Toggle theme">◐</button></div></header>
+<div class="layout"><aside><nav><section class="nav-section"><div class="nav-label">Start here</div><a href="index.html">Learn PunPun</a><a href="getting-started.html">Getting Started</a><a href="language.html">Language Basics</a><a href="functions.html">Functions</a><a href="control-flow.html">Control Flow</a></section><section class="nav-section"><div class="nav-label">Intermediate</div><a href="objects.html">Objects, Structs, and Contracts</a><a href="generics-results.html">Generics, Option, Result, and Match</a><a href="packages.html" aria-current="page" class="active">Packages and PPX</a><a href="ppx-publishing.html">Publishing Packages with PPX</a><a href="memory.html">Native Memory</a><a href="errors.html">Compiler Errors</a></section><section class="nav-section"><div class="nav-label">Build real things</div><a href="requests.html">HTTP Requests</a><a href="json.html">JSON</a><a href="gui.html">GUI</a><a href="async.html">Async and await</a></section><section class="nav-section"><div class="nav-label">Advanced</div><a href="toolchains.html">Native Toolchains</a><a href="injection.html">Foreign Injection</a><a href="performance.html">Performance</a><a href="self-hosting.html">Self-hosting Compiler</a><a href="editor-icons.html">Editor and File Icons</a></section></nav><div id="results"></div></aside><main><div class="page-meta"><span>Intermediate</span><span>.pp documentation</span></div><article><h1>Packages and PPX</h1>
+<p>PPX finds, validates, downloads, publishes, and installs PunPun packages while <code>pp</code> remains responsible for compilation.</p>
+<h2>Overview</h2>
+<p>Projects use <code>Punpun.toml</code> and <code>Punpun.lock</code>. PPX materializes registry packages into the same dependency graph used by <code>pp</code>, so package installation does not create a second compilation model.</p>
+<h2>Syntax</h2>
+<p>Search and install a package:</p>
+<div class="code-wrap"><div class="code-bar"><span>sh</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-sh">ppx search requests
+ppx install requests
 ppx tree</code></pre></div>
-<p>Bundled first-party packages work offline. The included local PPX registry backend supports authenticated immutable publication, checksums, safe archive validation, search, downloads and yanking for development/testing.</p><footer>Development documentation. Features marked planned are not yet implemented.</footer></main></div><script src="assets/site.js"></script></body></html>
+<p>Inspect package metadata:</p>
+<div class="code-wrap"><div class="code-bar"><span>sh</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-sh">ppx info requests</code></pre></div>
+<h2>Runnable example</h2>
+<p>Create a project, add the bundled requests package, then run it:</p>
+<div class="code-wrap"><div class="code-bar"><span>sh</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-sh">pp new package-demo
+cd package-demo
+ppx install requests
+pp run</code></pre></div>
+<p>For a package you are authoring, validate the archive before upload:</p>
+<div class="code-wrap"><div class="code-bar"><span>sh</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-sh">ppx publish --dry-run</code></pre></div>
+<p>Then authenticate and publish:</p>
+<div class="code-wrap"><div class="code-bar"><span>sh</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-sh">ppx register developer
+ppx login developer
+ppx publish</code></pre></div>
+<h2>Common mistakes</h2>
+<ul>
+<li>Publishing from a directory without <code>Punpun.toml</code>.</li>
+<li>Reusing an already-published version number. Registry versions are immutable; bump the package version instead.</li>
+<li>Publishing path-only dependencies. Public package metadata must use registry version requirements so another machine can reproduce the graph.</li>
+<li>Assuming <code>ppx install</code> executes package source during download. PPX validates and materializes source; compilation still happens through <code>pp</code>.</li>
+</ul>
+<h2>Next steps</h2>
+<p>Read the <a href="ppx-publishing.html">PPX publishing guide</a> for metadata fields, validation rules, account flow, downloads, yanking, and local registry testing.</p></article><div class="pager"><a class="pager-card prev" href="generics-results.html"><span>Previous</span><strong>Generics, Option, Result, and Match</strong></a><a class="pager-card next" href="memory.html"><span>Next</span><strong>Native Memory</strong></a></div><footer>Examples are written for PunPun 0.6.0-beta. Planned behavior is labeled rather than presented as shipped.</footer></main></div><script src="assets/site.js"></script></body></html>

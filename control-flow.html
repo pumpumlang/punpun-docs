@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="PunPun 0.6.0-beta language documentation"><title>Control Flow · PunPun</title><link rel="stylesheet" href="assets/site.css"></head>
+<body><header><a class="brand" href="index.html"><img src="assets/punpun-mark.svg" alt="PunPun"><span class="brand-name">PunPun</span><span class="version">0.6.0-beta</span></a><div class="head-actions"><input id="search" placeholder="Search docs…" aria-label="Search documentation"><button id="theme" aria-label="Toggle theme">◐</button></div></header>
+<div class="layout"><aside><nav><section class="nav-section"><div class="nav-label">Start here</div><a href="index.html">Learn PunPun</a><a href="getting-started.html">Getting Started</a><a href="language.html">Language Basics</a><a href="functions.html">Functions</a><a href="control-flow.html" aria-current="page" class="active">Control Flow</a></section><section class="nav-section"><div class="nav-label">Intermediate</div><a href="objects.html">Objects, Structs, and Contracts</a><a href="generics-results.html">Generics, Option, Result, and Match</a><a href="packages.html">Packages and PPX</a><a href="ppx-publishing.html">Publishing Packages with PPX</a><a href="memory.html">Native Memory</a><a href="errors.html">Compiler Errors</a></section><section class="nav-section"><div class="nav-label">Build real things</div><a href="requests.html">HTTP Requests</a><a href="json.html">JSON</a><a href="gui.html">GUI</a><a href="async.html">Async and await</a></section><section class="nav-section"><div class="nav-label">Advanced</div><a href="toolchains.html">Native Toolchains</a><a href="injection.html">Foreign Injection</a><a href="performance.html">Performance</a><a href="self-hosting.html">Self-hosting Compiler</a><a href="editor-icons.html">Editor and File Icons</a></section></nav><div id="results"></div></aside><main><div class="page-meta"><span>Beginner</span><span>.pp documentation</span></div><article><h1>Control Flow</h1>
+<p>Use conditions and loops to choose when code runs and how many times it repeats.</p>
+<h2>Overview</h2>
+<p>PunPun uses brace-delimited <code>if</code> blocks and range-based <code>for</code> loops. Conditions are boolean expressions.</p>
+<h2>Syntax</h2>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">if score &gt; 10 {
+    say(&quot;high&quot;);
+} else {
+    say(&quot;low&quot;);
+}
+
+for i in 0..3 {
+    say(i);
+}</code></pre></div>
+<h2>Runnable example</h2>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn classify(value: i64) -&gt; String {
+    if value &gt; 0 {
+        return &quot;positive&quot;;
+    }
+    return &quot;zero or negative&quot;;
+}
+
+launch {
+    for i in 0..4 {
+        say(classify(i - 1));
+    }
+}</code></pre></div>
+<p>Save as <code>control.pp</code> and run <code>pp run control.pp</code>.</p>
+<h2>Common mistakes</h2>
+<ul>
+<li>Using <code>=</code> when you mean comparison. Assignment and comparison are different operations.</li>
+<li>Forgetting braces around a control-flow body.</li>
+<li>Assuming <code>0..4</code> includes <code>4</code>. Treat the upper bound as exclusive in ordinary range loops.</li>
+</ul>
+<h2>Next steps</h2>
+<p>Move to <a href="objects.html">Objects, Structs, and Contracts</a> when you are comfortable with functions and control flow.</p></article><div class="pager"><a class="pager-card prev" href="functions.html"><span>Previous</span><strong>Functions</strong></a><a class="pager-card next" href="objects.html"><span>Next</span><strong>Objects, Structs, and Contracts</strong></a></div><footer>Examples are written for PunPun 0.6.0-beta. Planned behavior is labeled rather than presented as shipped.</footer></main></div><script src="assets/site.js"></script></body></html>

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="PunPun 0.6.0-beta language documentation"><title>Editor and File Icons · PunPun</title><link rel="stylesheet" href="assets/site.css"></head>
+<body><header><a class="brand" href="index.html"><img src="assets/punpun-mark.svg" alt="PunPun"><span class="brand-name">PunPun</span><span class="version">0.6.0-beta</span></a><div class="head-actions"><input id="search" placeholder="Search docs…" aria-label="Search documentation"><button id="theme" aria-label="Toggle theme">◐</button></div></header>
+<div class="layout"><aside><nav><section class="nav-section"><div class="nav-label">Start here</div><a href="index.html">Learn PunPun</a><a href="getting-started.html">Getting Started</a><a href="language.html">Language Basics</a><a href="functions.html">Functions</a><a href="control-flow.html">Control Flow</a></section><section class="nav-section"><div class="nav-label">Intermediate</div><a href="objects.html">Objects, Structs, and Contracts</a><a href="generics-results.html">Generics, Option, Result, and Match</a><a href="packages.html">Packages and PPX</a><a href="ppx-publishing.html">Publishing Packages with PPX</a><a href="memory.html">Native Memory</a><a href="errors.html">Compiler Errors</a></section><section class="nav-section"><div class="nav-label">Build real things</div><a href="requests.html">HTTP Requests</a><a href="json.html">JSON</a><a href="gui.html">GUI</a><a href="async.html">Async and await</a></section><section class="nav-section"><div class="nav-label">Advanced</div><a href="toolchains.html">Native Toolchains</a><a href="injection.html">Foreign Injection</a><a href="performance.html">Performance</a><a href="self-hosting.html">Self-hosting Compiler</a><a href="editor-icons.html" aria-current="page" class="active">Editor and File Icons</a></section></nav><div id="results"></div></aside><main><div class="page-meta"><span>Reference</span><span>.pp documentation</span></div><article><h1>Editor and File Icons</h1>
+<p>PunPun uses the same canonical mark for <code>.pp</code> files in VS Code, Linux file managers, and Windows Explorer.</p>
+<h2>Overview</h2>
+<p>The repository keeps source artwork under <code>assets/</code>. Platform-specific association files point back to those assets instead of maintaining unrelated logos.</p>
+<h2>Syntax</h2>
+<p>VS Code associates <code>.pp</code> with the <code>punpun</code> language and contributes light/dark language icons from:</p>
+<div class="code-wrap"><div class="code-bar"><span>text</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-text">editors/vscode/assets/punpun-file-light.png
+editors/vscode/assets/punpun-file-dark.png</code></pre></div>
+<p>Linux uses MIME type <code>application/x-punpun</code> from:</p>
+<div class="code-wrap"><div class="code-bar"><span>text</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-text">packaging/linux/application-x-punpun.xml</code></pre></div>
+<p>Windows uses the MSI ProgID <code>PunPun.Source</code> and:</p>
+<div class="code-wrap"><div class="code-bar"><span>text</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-text">assets/punpun-source.ico</code></pre></div>
+<h2>Runnable example</h2>
+<p>Install or refresh the Linux association for your user account:</p>
+<div class="code-wrap"><div class="code-bar"><span>sh</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-sh">./packaging/linux/install-file-icons.sh</code></pre></div>
+<p>A system package can use:</p>
+<div class="code-wrap"><div class="code-bar"><span>sh</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-sh">sudo ./packaging/linux/install-file-icons.sh --system</code></pre></div>
+<p>Then reopen the file manager if it cached the old icon. The normal PunPun Linux installer performs the per-user registration automatically.</p>
+<h2>Common mistakes</h2>
+<ul>
+<li>Renaming a PNG to <code>.ico</code>. Windows Explorer expects a real icon container, so PunPun ships a multi-resolution ICO.</li>
+<li>Expecting VS Code to ignore the active file-icon theme. PunPun contributes a language icon, but a theme with its own explicit <code>.pp</code> mapping can intentionally override it.</li>
+<li>Copying MIME XML without refreshing the shared MIME database. The install script runs <code>update-mime-database</code> when available.</li>
+</ul>
+<h2>Next steps</h2>
+<p>Read <a href="getting-started.html">Getting Started</a> to install the SDK or <a href="errors.html">Compiler Errors</a> to configure the editor around compiler-backed diagnostics.</p></article><div class="pager"><span></span><span></span></div><footer>Examples are written for PunPun 0.6.0-beta. Planned behavior is labeled rather than presented as shipped.</footer></main></div><script src="assets/site.js"></script></body></html>

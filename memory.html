@@ -1,16 +1,37 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="PunPun 0.6.0-beta language documentation"><title>Native Memory · PunPun</title><link rel="stylesheet" href="assets/site.css"></head><body><header><a class="brand" href="index.html"><img src="assets/punpun-mark.svg" alt="PunPun">PunPun <span>0.6.0-beta</span></a><div class="head-actions"><input id="search" placeholder="Search docs…" aria-label="Search documentation"><button id="theme" aria-label="Toggle theme">◐</button></div></header><div class="layout"><aside><nav><a href="async.html">Async and await</a><a href="errors.html">Compiler Errors</a><a href="getting-started.html">Getting Started</a><a href="gui.html">GUI</a><a href="index.html">PunPun</a><a href="injection.html">Foreign Injection</a><a href="json.html">JSON</a><a href="language.html">Language Basics</a><a href="memory.html">Native Memory</a><a href="objects.html">Objects, Structs, and Contracts</a><a href="packages.html">Packages and PPX</a><a href="performance.html">Performance</a><a href="requests.html">HTTP Requests</a><a href="self-hosting.html">Self-hosting Compiler</a><a href="toolchains.html">Native Toolchains</a></nav><div id="results"></div></aside><main><h1>Native Memory</h1>
-<p>Safe references and raw pointers are different types. Raw pointer creation/dereference/arithmetic requires <code>unsafe</code>.</p>
-<div class="code-wrap"><button class="copy" aria-label="Copy code">Copy</button><pre><code class="language-punpun">fn bump(value: &amp;mut i64) {
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="PunPun 0.6.0-beta language documentation"><title>Native Memory · PunPun</title><link rel="stylesheet" href="assets/site.css"></head>
+<body><header><a class="brand" href="index.html"><img src="assets/punpun-mark.svg" alt="PunPun"><span class="brand-name">PunPun</span><span class="version">0.6.0-beta</span></a><div class="head-actions"><input id="search" placeholder="Search docs…" aria-label="Search documentation"><button id="theme" aria-label="Toggle theme">◐</button></div></header>
+<div class="layout"><aside><nav><section class="nav-section"><div class="nav-label">Start here</div><a href="index.html">Learn PunPun</a><a href="getting-started.html">Getting Started</a><a href="language.html">Language Basics</a><a href="functions.html">Functions</a><a href="control-flow.html">Control Flow</a></section><section class="nav-section"><div class="nav-label">Intermediate</div><a href="objects.html">Objects, Structs, and Contracts</a><a href="generics-results.html">Generics, Option, Result, and Match</a><a href="packages.html">Packages and PPX</a><a href="ppx-publishing.html">Publishing Packages with PPX</a><a href="memory.html" aria-current="page" class="active">Native Memory</a><a href="errors.html">Compiler Errors</a></section><section class="nav-section"><div class="nav-label">Build real things</div><a href="requests.html">HTTP Requests</a><a href="json.html">JSON</a><a href="gui.html">GUI</a><a href="async.html">Async and await</a></section><section class="nav-section"><div class="nav-label">Advanced</div><a href="toolchains.html">Native Toolchains</a><a href="injection.html">Foreign Injection</a><a href="performance.html">Performance</a><a href="self-hosting.html">Self-hosting Compiler</a><a href="editor-icons.html">Editor and File Icons</a></section></nav><div id="results"></div></aside><main><div class="page-meta"><span>Intermediate</span><span>.pp documentation</span></div><article><h1>Native Memory</h1>
+<p>PunPun keeps safe references separate from raw pointers and makes unsafe operations visibly opt-in.</p>
+<h2>Overview</h2>
+<p>Use <code>&amp;T</code> for a shared safe reference and <code>&amp;mut T</code> when mutation through the reference is allowed. Raw pointers require an <code>unsafe</code> region. The ownership pass also tracks explicit moves, borrows, and checked slices.</p>
+<h2>Syntax</h2>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn bump(value: &amp;mut i64) {
+    *value = *value + 1;
+}</code></pre></div>
+<p>Raw-pointer work is explicit:</p>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">unsafe {
+    let pointer: *i64 = &amp;raw value;
+    *pointer = 42;
+}</code></pre></div>
+<h2>Runnable example</h2>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn bump(value: &amp;mut i64) {
     *value = *value + 1;
 }
 
 launch {
-    let mut value = 41;
+    let mut value = 40;
     bump(&amp;mut value);
-
-    unsafe {
-        let raw: *i64 = &amp;raw value;
-        *raw = 43;
-    }
+    bump(&amp;mut value);
+    say(value);
 }</code></pre></div>
-<p>The semantic analyzer rejects mutable references to immutable bindings and simple escaping-local-reference cases. The lifetime/move analysis is a beta foundation, not yet a complete Rust-style borrow checker.</p><footer>Development documentation. Features marked planned are not yet implemented.</footer></main></div><script src="assets/site.js"></script></body></html>
+<p>Save as <code>references.pp</code> and run <code>pp run references.pp</code>.</p>
+<h2>Common mistakes</h2>
+<ul>
+<li>Taking a mutable reference to an immutable binding.</li>
+<li>Using a value after an explicit <code>move(...)</code> without reinitializing it.</li>
+<li>Dereferencing or doing raw-pointer arithmetic outside <code>unsafe</code>.</li>
+<li>Mutating a list while a live checked slice borrows it.</li>
+</ul>
+<h2>Next steps</h2>
+<p>Read <a href="errors.html">Compiler Errors</a> to understand move/borrow diagnostics, then <a href="injection.html">Foreign Injection</a> if you need native ABI integration.</p></article><div class="pager"><a class="pager-card prev" href="packages.html"><span>Previous</span><strong>Packages and PPX</strong></a><span></span></div><footer>Examples are written for PunPun 0.6.0-beta. Planned behavior is labeled rather than presented as shipped.</footer></main></div><script src="assets/site.js"></script></body></html>

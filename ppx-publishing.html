@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="PunPun 0.6.0-beta language documentation"><title>Publishing Packages with PPX · PunPun</title><link rel="stylesheet" href="assets/site.css"></head>
+<body><header><a class="brand" href="index.html"><img src="assets/punpun-mark.svg" alt="PunPun"><span class="brand-name">PunPun</span><span class="version">0.6.0-beta</span></a><div class="head-actions"><input id="search" placeholder="Search docs…" aria-label="Search documentation"><button id="theme" aria-label="Toggle theme">◐</button></div></header>
+<div class="layout"><aside><nav><section class="nav-section"><div class="nav-label">Start here</div><a href="index.html">Learn PunPun</a><a href="getting-started.html">Getting Started</a><a href="language.html">Language Basics</a><a href="functions.html">Functions</a><a href="control-flow.html">Control Flow</a></section><section class="nav-section"><div class="nav-label">Intermediate</div><a href="objects.html">Objects, Structs, and Contracts</a><a href="generics-results.html">Generics, Option, Result, and Match</a><a href="packages.html">Packages and PPX</a><a href="ppx-publishing.html" aria-current="page" class="active">Publishing Packages with PPX</a><a href="memory.html">Native Memory</a><a href="errors.html">Compiler Errors</a></section><section class="nav-section"><div class="nav-label">Build real things</div><a href="requests.html">HTTP Requests</a><a href="json.html">JSON</a><a href="gui.html">GUI</a><a href="async.html">Async and await</a></section><section class="nav-section"><div class="nav-label">Advanced</div><a href="toolchains.html">Native Toolchains</a><a href="injection.html">Foreign Injection</a><a href="performance.html">Performance</a><a href="self-hosting.html">Self-hosting Compiler</a><a href="editor-icons.html">Editor and File Icons</a></section></nav><div id="results"></div></aside><main><div class="page-meta"><span>Intermediate</span><span>.pp documentation</span></div><article><h1>Publishing Packages with PPX</h1>
+<p>Publish an immutable package version to a PPX registry, then install it from another project.</p>
+<h2>Overview</h2>
+<p>A publish has four stages: read metadata from <code>Punpun.toml</code>, validate dependencies and files, create a checksummed ZIP, then upload it with your authenticated PPX token. The registry independently validates the archive before accepting it.</p>
+<h2>Syntax</h2>
+<p>A publishable manifest can include:</p>
+<div class="code-wrap"><div class="code-bar"><span>toml</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-toml">[package]
+name = &quot;my_math&quot;
+version = &quot;1.2.0&quot;
+description = &quot;Small math helpers&quot;
+license = &quot;MIT&quot;
+repository = &quot;https://example.invalid/my_math&quot;
+homepage = &quot;https://example.invalid/my_math/docs&quot;
+readme = &quot;README.md&quot;
+keywords = [&quot;math&quot;, &quot;helpers&quot;]
+entry = &quot;src/main.pp&quot;
+
+[dependencies]
+json = &quot;^0.1.0&quot;</code></pre></div>
+<p>Package names and versions are validated, the readme path must stay inside the package, dependency requirements must be valid version requirements, and unusually large or unsafe archive paths are rejected.</p>
+<h2>Runnable example</h2>
+<p>Start the development registry:</p>
+<div class="code-wrap"><div class="code-bar"><span>sh</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-sh">python3 ppx-registry/server.py --host 127.0.0.1 --port 8765 --data .ppx-registry</code></pre></div>
+<p>In another terminal:</p>
+<div class="code-wrap"><div class="code-bar"><span>sh</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-sh">export PPX_REGISTRY=http://127.0.0.1:8765
+ppx register developer
+ppx login developer
+cd my-package
+ppx publish --dry-run
+ppx publish</code></pre></div>
+<p>Install it from a different project:</p>
+<div class="code-wrap"><div class="code-bar"><span>sh</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-sh">ppx install my_math &#x27;^1.2.0&#x27;
+ppx info my_math</code></pre></div>
+<p>Download the immutable archive without modifying a project:</p>
+<div class="code-wrap"><div class="code-bar"><span>sh</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-sh">ppx download my_math 1.2.0 -o my_math-1.2.0.zip</code></pre></div>
+<h2>Common mistakes</h2>
+<ul>
+<li>Putting a token in <code>Punpun.toml</code>. PPX stores login state outside the project.</li>
+<li>Publishing secrets, build output, <code>.git</code>, <code>.punpun</code>, <code>node_modules</code>, or cache directories. The client excludes known junk, but authors are still responsible for package contents.</li>
+<li>Depending on <code>../local-package</code> with a path dependency in a public release. Replace it with a registry version requirement first.</li>
+<li>Expecting to overwrite <code>1.2.0</code>. Publish <code>1.2.1</code> or another new version; use <code>ppx yank</code> only when an existing release should no longer resolve normally.</li>
+</ul>
+<h2>Next steps</h2>
+<p>Use <code>ppx info &lt;name&gt;</code> to inspect owner, versions, checksums, dependencies, and metadata. Use <code>ppx doctor</code> to verify registry connectivity and local cache paths.</p></article><div class="pager"><span></span><span></span></div><footer>Examples are written for PunPun 0.6.0-beta. Planned behavior is labeled rather than presented as shipped.</footer></main></div><script src="assets/site.js"></script></body></html>

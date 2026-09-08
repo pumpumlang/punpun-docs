@@ -1,34 +1,39 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="PunPun 0.6.0-beta language documentation"><title>Language Basics · PunPun</title><link rel="stylesheet" href="assets/site.css"></head><body><header><a class="brand" href="index.html"><img src="assets/punpun-mark.svg" alt="PunPun">PunPun <span>0.6.0-beta</span></a><div class="head-actions"><input id="search" placeholder="Search docs…" aria-label="Search documentation"><button id="theme" aria-label="Toggle theme">◐</button></div></header><div class="layout"><aside><nav><a href="async.html">Async and await</a><a href="errors.html">Compiler Errors</a><a href="getting-started.html">Getting Started</a><a href="gui.html">GUI</a><a href="index.html">PunPun</a><a href="injection.html">Foreign Injection</a><a href="json.html">JSON</a><a href="language.html">Language Basics</a><a href="memory.html">Native Memory</a><a href="objects.html">Objects, Structs, and Contracts</a><a href="packages.html">Packages and PPX</a><a href="performance.html">Performance</a><a href="requests.html">HTTP Requests</a><a href="self-hosting.html">Self-hosting Compiler</a><a href="toolchains.html">Native Toolchains</a></nav><div id="results"></div></aside><main><h1>Language Basics</h1>
-<p>PunPun 0.6 development uses structured braces and semicolons while retaining distinctive entry/import vocabulary.</p>
-<div class="code-wrap"><button class="copy" aria-label="Copy code">Copy</button><pre><code class="language-punpun">bring std::math;
-
-fn twice(value: i64) -&gt; i64 {
-    return value * 2;
-}
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="PunPun 0.6.0-beta language documentation"><title>Language Basics · PunPun</title><link rel="stylesheet" href="assets/site.css"></head>
+<body><header><a class="brand" href="index.html"><img src="assets/punpun-mark.svg" alt="PunPun"><span class="brand-name">PunPun</span><span class="version">0.6.0-beta</span></a><div class="head-actions"><input id="search" placeholder="Search docs…" aria-label="Search documentation"><button id="theme" aria-label="Toggle theme">◐</button></div></header>
+<div class="layout"><aside><nav><section class="nav-section"><div class="nav-label">Start here</div><a href="index.html">Learn PunPun</a><a href="getting-started.html">Getting Started</a><a href="language.html" aria-current="page" class="active">Language Basics</a><a href="functions.html">Functions</a><a href="control-flow.html">Control Flow</a></section><section class="nav-section"><div class="nav-label">Intermediate</div><a href="objects.html">Objects, Structs, and Contracts</a><a href="generics-results.html">Generics, Option, Result, and Match</a><a href="packages.html">Packages and PPX</a><a href="ppx-publishing.html">Publishing Packages with PPX</a><a href="memory.html">Native Memory</a><a href="errors.html">Compiler Errors</a></section><section class="nav-section"><div class="nav-label">Build real things</div><a href="requests.html">HTTP Requests</a><a href="json.html">JSON</a><a href="gui.html">GUI</a><a href="async.html">Async and await</a></section><section class="nav-section"><div class="nav-label">Advanced</div><a href="toolchains.html">Native Toolchains</a><a href="injection.html">Foreign Injection</a><a href="performance.html">Performance</a><a href="self-hosting.html">Self-hosting Compiler</a><a href="editor-icons.html">Editor and File Icons</a></section></nav><div id="results"></div></aside><main><div class="page-meta"><span>Beginner</span><span>.pp documentation</span></div><article><h1>Language Basics</h1>
+<p>Learn the smallest pieces of PunPun source: imports, bindings, mutability, types, calls, and the program entry block.</p>
+<h2>Overview</h2>
+<p><code>bring</code> imports a module. <code>let</code> creates a binding. Bindings are immutable unless you add <code>mut</code>. <code>launch</code> is the executable entry block.</p>
+<h2>Syntax</h2>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">bring std::io;
 
 launch {
-    let mut total = 0;
-    for i in 0..5 {
-        total += twice(i);
-    }
-    say(total);
+    let name = &quot;PunPun&quot;;
+    let mut count = 1;
+    count += 1;
+    say(name);
+    say(count);
 }</code></pre></div>
-<p><code>let</code> is immutable by default. Add <code>mut</code> when reassignment is required. The 0.5 beta compiler still accepts selected legacy syntax for migration; <code>pp migrate</code> converts common 0.4 forms.</p>
-<h2>Generics and algebraic enums</h2>
-<div class="code-wrap"><button class="copy" aria-label="Copy code">Copy</button><pre><code class="language-punpun">fn identity&lt;T: Copy&gt;(value: T) -&gt; T { return value; }
-
-enum Message&lt;T&gt; {
-    Empty,
-    Value(T),
-}
-
-fn read(message: Message&lt;int&gt;) -&gt; int {
-    return match message {
-        Message::Empty =&gt; 0,
-        Message::Value(value) =&gt; identity(value),
-    };
+<p>Use an explicit type when it improves clarity:</p>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">let attempts: i64 = 3;
+let enabled: bool = true;
+let title: String = &quot;demo&quot;;</code></pre></div>
+<h2>Runnable example</h2>
+<p>Save this as <code>basics.pp</code>:</p>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">launch {
+    let language = &quot;PunPun&quot;;
+    let mut score: i64 = 40;
+    score += 2;
+    say(language);
+    say(score);
 }</code></pre></div>
-<p>Generic calls are specialized to concrete native implementations. Matches must</p>
-<p>cover every enum variant; bindings and nested variant patterns destructure</p>
-<p>payloads. <code>Option&lt;T&gt;</code> and <code>Result&lt;T,E&gt;</code> are prelude enums, and postfix <code>?</code></p>
-<p>propagates their failure variant from a compatible function.</p><footer>Development documentation. Features marked planned are not yet implemented.</footer></main></div><script src="assets/site.js"></script></body></html>
+<p>Run it with <code>pp run basics.pp</code>.</p>
+<h2>Common mistakes</h2>
+<ul>
+<li>Reassigning an immutable binding. Use <code>let mut value = ...</code> only when reassignment is needed.</li>
+<li>Mixing old migration syntax into new code. Use <code>pp migrate</code> on older files instead of learning both forms at once.</li>
+<li>Guessing a type name. Let local inference work first, then add an explicit type when you actually need one.</li>
+</ul>
+<h2>Next steps</h2>
+<p>Continue to <a href="functions.html">Functions</a> to move repeated work into named, typed operations.</p></article><div class="pager"><a class="pager-card prev" href="getting-started.html"><span>Previous</span><strong>Getting Started</strong></a><a class="pager-card next" href="functions.html"><span>Next</span><strong>Functions</strong></a></div><footer>Examples are written for PunPun 0.6.0-beta. Planned behavior is labeled rather than presented as shipped.</footer></main></div><script src="assets/site.js"></script></body></html>

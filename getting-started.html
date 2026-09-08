@@ -1,11 +1,35 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="PunPun 0.6.0-beta language documentation"><title>Getting Started · PunPun</title><link rel="stylesheet" href="assets/site.css"></head><body><header><a class="brand" href="index.html"><img src="assets/punpun-mark.svg" alt="PunPun">PunPun <span>0.6.0-beta</span></a><div class="head-actions"><input id="search" placeholder="Search docs…" aria-label="Search documentation"><button id="theme" aria-label="Toggle theme">◐</button></div></header><div class="layout"><aside><nav><a href="async.html">Async and await</a><a href="errors.html">Compiler Errors</a><a href="getting-started.html">Getting Started</a><a href="gui.html">GUI</a><a href="index.html">PunPun</a><a href="injection.html">Foreign Injection</a><a href="json.html">JSON</a><a href="language.html">Language Basics</a><a href="memory.html">Native Memory</a><a href="objects.html">Objects, Structs, and Contracts</a><a href="packages.html">Packages and PPX</a><a href="performance.html">Performance</a><a href="requests.html">HTTP Requests</a><a href="self-hosting.html">Self-hosting Compiler</a><a href="toolchains.html">Native Toolchains</a></nav><div id="results"></div></aside><main><h1>Getting Started</h1>
-<h2>Install on Linux</h2>
-<p>Use the portable SDK or the self-extracting installer. Arch/CachyOS users can also install the generated pacman package with <code>sudo pacman -U</code>.</p>
-<p>After installation:</p>
-<div class="code-wrap"><button class="copy" aria-label="Copy code">Copy</button><pre><code class="language-sh">pp --version
-pp doctor
-pp new demo
-cd demo
-pp run</code></pre></div>
-<h2>VS Code</h2>
-<p>Install the bundled <code>punpun-vscode-&lt;VERSION&gt;.vsix</code>, reload the editor, and open a <code>.pp</code> file. Unknown identifiers are diagnosed from unsaved buffers without building machine code.</p><footer>Development documentation. Features marked planned are not yet implemented.</footer></main></div><script src="assets/site.js"></script></body></html>
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="PunPun 0.6.0-beta language documentation"><title>Getting Started · PunPun</title><link rel="stylesheet" href="assets/site.css"></head>
+<body><header><a class="brand" href="index.html"><img src="assets/punpun-mark.svg" alt="PunPun"><span class="brand-name">PunPun</span><span class="version">0.6.0-beta</span></a><div class="head-actions"><input id="search" placeholder="Search docs…" aria-label="Search documentation"><button id="theme" aria-label="Toggle theme">◐</button></div></header>
+<div class="layout"><aside><nav><section class="nav-section"><div class="nav-label">Start here</div><a href="index.html">Learn PunPun</a><a href="getting-started.html" aria-current="page" class="active">Getting Started</a><a href="language.html">Language Basics</a><a href="functions.html">Functions</a><a href="control-flow.html">Control Flow</a></section><section class="nav-section"><div class="nav-label">Intermediate</div><a href="objects.html">Objects, Structs, and Contracts</a><a href="generics-results.html">Generics, Option, Result, and Match</a><a href="packages.html">Packages and PPX</a><a href="ppx-publishing.html">Publishing Packages with PPX</a><a href="memory.html">Native Memory</a><a href="errors.html">Compiler Errors</a></section><section class="nav-section"><div class="nav-label">Build real things</div><a href="requests.html">HTTP Requests</a><a href="json.html">JSON</a><a href="gui.html">GUI</a><a href="async.html">Async and await</a></section><section class="nav-section"><div class="nav-label">Advanced</div><a href="toolchains.html">Native Toolchains</a><a href="injection.html">Foreign Injection</a><a href="performance.html">Performance</a><a href="self-hosting.html">Self-hosting Compiler</a><a href="editor-icons.html">Editor and File Icons</a></section></nav><div id="results"></div></aside><main><div class="page-meta"><span>Beginner</span><span>.pp documentation</span></div><article><h1>Getting Started</h1>
+<p>Get from an installed SDK to a running project without learning the whole language at once.</p>
+<h2>Overview</h2>
+<p>For everyday development you mainly need three commands: <code>pp check</code>, <code>pp run</code>, and <code>pp build</code>. <code>pp new</code> creates the project structure for you.</p>
+<h2>Syntax</h2>
+<p>Create a project and enter it:</p>
+<div class="code-wrap"><div class="code-bar"><span>sh</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-sh">pp new hello
+cd hello</code></pre></div>
+<p>The generated <code>src/main.pp</code> contains a <code>launch</code> block. Replace it with:</p>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">launch {
+    say(&quot;My first PunPun project&quot;);
+}</code></pre></div>
+<h2>Runnable example</h2>
+<p>Use this complete <code>src/main.pp</code>:</p>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">launch {
+    say(&quot;My first PunPun project&quot;);
+}</code></pre></div>
+<p>Check the project without producing a final executable:</p>
+<div class="code-wrap"><div class="code-bar"><span>sh</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-sh">pp check</code></pre></div>
+<p>Run it:</p>
+<div class="code-wrap"><div class="code-bar"><span>sh</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-sh">pp run</code></pre></div>
+<p>Build a release executable when you need one:</p>
+<div class="code-wrap"><div class="code-bar"><span>sh</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-sh">pp build --release</code></pre></div>
+<p>Before debugging a setup problem, run <code>pp doctor</code>.</p>
+<h2>Common mistakes</h2>
+<ul>
+<li><code>pp</code> is not found: open a new terminal after installing, or add the installer-reported bin directory to <code>PATH</code>.</li>
+<li>Running commands one directory above the project: enter the folder containing <code>Punpun.toml</code>.</li>
+<li>Editing generated/cache files under <code>.punpun</code>: edit <code>src/</code> instead.</li>
+</ul>
+<h2>Next steps</h2>
+<p>Read <a href="language.html">Language Basics</a> for variables, values, imports, and the <code>launch</code> entry block. Editor setup and OS file icons are documented in <a href="editor-icons.html">Editor and File Icons</a>.</p></article><div class="pager"><a class="pager-card prev" href="index.html"><span>Previous</span><strong>Learn PunPun</strong></a><a class="pager-card next" href="language.html"><span>Next</span><strong>Language Basics</strong></a></div><footer>Examples are written for PunPun 0.6.0-beta. Planned behavior is labeled rather than presented as shipped.</footer></main></div><script src="assets/site.js"></script></body></html>
