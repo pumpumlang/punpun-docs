@@ -1,0 +1,956 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="PunPun 1.3.0 language documentation"><title>PunPun first-party API reference · PunPun</title><link rel="stylesheet" href="assets/site.css"></head>
+<body><header><a class="brand" href="index.html"><img src="assets/punpun-mark.svg" alt="PunPun"><span class="brand-name">PunPun</span><span class="version">1.3.0</span></a><div class="head-actions"><input id="search" placeholder="Search docs…" aria-label="Search documentation"><button id="theme" aria-label="Toggle theme">◐</button></div></header>
+<div class="layout"><aside><nav><section class="nav-section"><div class="nav-label">Start here</div><a href="index.html">Learn PunPun</a><a href="getting-started.html">Getting Started</a><a href="language.html">Language Basics</a><a href="functions.html">Functions</a><a href="control-flow.html">Control Flow</a></section><section class="nav-section"><div class="nav-label">Intermediate</div><a href="objects.html">Objects, Structs, and Contracts</a><a href="generics-results.html">Generics, Option, Result, and Match</a><a href="packages.html">Packages and PPX</a><a href="ppx-publishing.html">Publishing Packages with PPX</a><a href="ppx-security.html">PPX package security</a><a href="memory.html">Native Memory</a><a href="errors.html">Compiler Errors</a></section><section class="nav-section"><div class="nav-label">Build real things</div><a href="requests.html">Verified HTTPS</a><a href="json.html">JSON</a><a href="gui.html">GUI</a><a href="async.html">Async, task groups, and cancellation</a></section><section class="nav-section"><div class="nav-label">Advanced</div><a href="toolchains.html">Native Toolchains</a><a href="injection.html">Foreign Injection</a><a href="performance.html">Performance and profiling</a><a href="self-hosting.html">Self-hosting Compiler</a><a href="editor-icons.html">Editor and File Icons</a><a href="api-reference.html" aria-current="page" class="active">PunPun first-party API reference</a></section></nav><div id="results"></div></aside><main><div class="page-meta"><span>Reference</span><span>.pp documentation</span></div><article><h1>PunPun first-party API reference</h1>
+<p>Generated from the checked-in PunPun standard library and first-party package sources.</p>
+<p>Run <code>pp doc</code> to regenerate or <code>pp doc --check</code> in CI.</p>
+<h2><code>packages/cli/src/main.pp</code></h2>
+<h3><code>cli_count</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn cli_count() -&gt; i64</code></pre></div>
+<h3><code>cli_arg</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn cli_arg(index: i64) -&gt; String</code></pre></div>
+<h3><code>cli_has_args</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn cli_has_args() -&gt; bool</code></pre></div>
+<h2><code>packages/filesystem/src/main.pp</code></h2>
+<h3><code>file_read</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn file_read(path: String) -&gt; String</code></pre></div>
+<h3><code>file_write</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn file_write(path: String, contents: String)</code></pre></div>
+<h3><code>file_present</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn file_present(path: String) -&gt; bool</code></pre></div>
+<h3><code>working_directory</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn working_directory() -&gt; String</code></pre></div>
+<h2><code>packages/json/src/main.pp</code></h2>
+<h3><code>pp_json_valid</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">extern native fn pp_json_valid(text: String) -&gt; i64;</code></pre></div>
+<h3><code>pp_json_get_string</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">extern native fn pp_json_get_string(text: String, key: String, fallback: String) -&gt; String;</code></pre></div>
+<h3><code>pp_json_get_i64</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">extern native fn pp_json_get_i64(text: String, key: String, fallback: i64) -&gt; i64;</code></pre></div>
+<h3><code>pp_json_quote</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">extern native fn pp_json_quote(text: String) -&gt; String;</code></pre></div>
+<h3><code>json_valid</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn json_valid(text: String) -&gt; bool</code></pre></div>
+<h3><code>json_get_string</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn json_get_string(text: String, key: String, fallback: String) -&gt; String</code></pre></div>
+<h3><code>json_get_i64</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn json_get_i64(text: String, key: String, fallback: i64) -&gt; i64</code></pre></div>
+<h3><code>json_quote</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn json_quote(text: String) -&gt; String</code></pre></div>
+<h2><code>packages/logging/src/main.pp</code></h2>
+<h3><code>log_trace</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn log_trace(message: String)</code></pre></div>
+<h3><code>log_debug</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn log_debug(message: String)</code></pre></div>
+<h3><code>log_info</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn log_info(message: String)</code></pre></div>
+<h3><code>log_warn</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn log_warn(message: String)</code></pre></div>
+<h3><code>log_error</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn log_error(message: String)</code></pre></div>
+<h2><code>packages/requests/src/main.pp</code></h2>
+<h3><code>HttpResponse</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">object HttpResponse</code></pre></div>
+<p>The 1.0 requests surface is preserved, but its implementation is now the compiler/runtime HTTPS service rather than package-local injected C.</p>
+<h3><code>ok</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">public fn ok() -&gt; bool</code></pre></div>
+<h3><code>text</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">public fn text() -&gt; String</code></pre></div>
+<h3><code>requests_available</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn requests_available() -&gt; bool</code></pre></div>
+<h3><code>requests_request</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn requests_request(method: String, url: String, body: String, headers: String,</code></pre></div>
+<h3><code>requests_get</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn requests_get(url: String) -&gt; HttpResponse</code></pre></div>
+<h3><code>requests_post</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn requests_post(url: String, body: String) -&gt; HttpResponse</code></pre></div>
+<h3><code>requests_put</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn requests_put(url: String, body: String) -&gt; HttpResponse</code></pre></div>
+<h3><code>requests_patch</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn requests_patch(url: String, body: String) -&gt; HttpResponse</code></pre></div>
+<h3><code>requests_delete</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn requests_delete(url: String) -&gt; HttpResponse</code></pre></div>
+<h3><code>requests_head</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn requests_head(url: String) -&gt; HttpResponse</code></pre></div>
+<h3><code>requests_request_async</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">async fn requests_request_async(method: String, url: String, body: String,</code></pre></div>
+<h3><code>requests_get_async</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">async fn requests_get_async(url: String) -&gt; HttpResponse</code></pre></div>
+<h3><code>requests_post_async</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">async fn requests_post_async(url: String, body: String) -&gt; HttpResponse</code></pre></div>
+<h3><code>requests_put_async</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">async fn requests_put_async(url: String, body: String) -&gt; HttpResponse</code></pre></div>
+<h3><code>requests_patch_async</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">async fn requests_patch_async(url: String, body: String) -&gt; HttpResponse</code></pre></div>
+<h3><code>requests_delete_async</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">async fn requests_delete_async(url: String) -&gt; HttpResponse</code></pre></div>
+<h3><code>requests_head_async</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">async fn requests_head_async(url: String) -&gt; HttpResponse</code></pre></div>
+<h2><code>packages/testing/src/main.pp</code></h2>
+<h3><code>expect</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn expect(condition: bool, message: String)</code></pre></div>
+<h3><code>expect_equal_i64</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn expect_equal_i64(left: i64, right: i64, message: String)</code></pre></div>
+<h3><code>expect_equal_string</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn expect_equal_string(left: String, right: String, message: String)</code></pre></div>
+<h2><code>stdlib/std/async.pp</code></h2>
+<h3><code>delay_ms</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">async fn delay_ms(delay: i64)</code></pre></div>
+<p>PunPun structured async helpers. <code>async fn</code> / <code>await</code> are compiler features. This module provides reusable task helpers while the runtime keeps task creation lazy for ordinary programs.</p>
+<h3><code>delayed_i64</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">async fn delayed_i64(value: i64, delay: i64) -&gt; i64</code></pre></div>
+<h3><code>delayed_text</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">async fn delayed_text(value: String, delay: i64) -&gt; String</code></pre></div>
+<h3><code>read_text_async</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">async fn read_text_async(path: String) -&gt; String</code></pre></div>
+<h3><code>write_text_async</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">async fn write_text_async(path: String, value: String)</code></pre></div>
+<h3><code>cancellable_delay_ms</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">async fn cancellable_delay_ms(delay: i64) -&gt; bool</code></pre></div>
+<p>Cooperative workers should check cancelled() at natural loop boundaries. sleep_ms() is itself a cancellation safe point and returns early when the current task receives a cancellation request.</p>
+<h2><code>stdlib/std/collections/counter.pp</code></h2>
+<h3><code>counter_new</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn counter_new() -&gt; Map&lt;int&gt;</code></pre></div>
+<h3><code>counter_add</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn counter_add(counts: Map&lt;int&gt;, key: str)</code></pre></div>
+<h3><code>counter_add_many</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn counter_add_many(counts: Map&lt;int&gt;, key: str, amount: int)</code></pre></div>
+<h3><code>counter_get</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn counter_get(counts: Map&lt;int&gt;, key: str) -&gt; int</code></pre></div>
+<h3><code>counter_total</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn counter_total(counts: Map&lt;int&gt;) -&gt; int</code></pre></div>
+<h3><code>counter_most_common</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn counter_most_common(counts: Map&lt;int&gt;) -&gt; str</code></pre></div>
+<h2><code>stdlib/std/collections/grid.pp</code></h2>
+<h3><code>Grid</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">struct Grid</code></pre></div>
+<h3><code>grid_new</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn grid_new(width: int, height: int, initial: int) -&gt; Grid</code></pre></div>
+<h3><code>grid_index</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn grid_index(board: Grid, x: int, y: int) -&gt; int</code></pre></div>
+<h3><code>grid_get</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn grid_get(board: Grid, x: int, y: int) -&gt; int</code></pre></div>
+<h3><code>grid_set</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn grid_set(board: Grid, x: int, y: int, value: int)</code></pre></div>
+<h3><code>grid_in_bounds</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn grid_in_bounds(board: Grid, x: int, y: int) -&gt; bool</code></pre></div>
+<h3><code>grid_get_or</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn grid_get_or(board: Grid, x: int, y: int, fallback: int) -&gt; int</code></pre></div>
+<h3><code>grid_fill</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn grid_fill(board: Grid, value: int)</code></pre></div>
+<h3><code>grid_count</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn grid_count(board: Grid, value: int) -&gt; int</code></pre></div>
+<h3><code>grid_neighbour_sum</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn grid_neighbour_sum(board: Grid, x: int, y: int) -&gt; int</code></pre></div>
+<h3><code>grid_to_text</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn grid_to_text(board: Grid) -&gt; str</code></pre></div>
+<h2><code>stdlib/std/collections/heap.pp</code></h2>
+<h3><code>heap_new</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn heap_new() -&gt; List&lt;int&gt;</code></pre></div>
+<h3><code>heap_push</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn heap_push(heap: List&lt;int&gt;, value: int)</code></pre></div>
+<h3><code>heap_peek</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn heap_peek(heap: List&lt;int&gt;) -&gt; int</code></pre></div>
+<h3><code>heap_pop</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn heap_pop(heap: List&lt;int&gt;) -&gt; int</code></pre></div>
+<h3><code>heap_size</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn heap_size(heap: List&lt;int&gt;) -&gt; int</code></pre></div>
+<h3><code>heap_is_empty</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn heap_is_empty(heap: List&lt;int&gt;) -&gt; bool</code></pre></div>
+<h3><code>heap_sort</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn heap_sort(values: List&lt;int&gt;) -&gt; List&lt;int&gt;</code></pre></div>
+<h2><code>stdlib/std/collections/list_ops.pp</code></h2>
+<h3><code>list_copy</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn list_copy&lt;T: Copy&gt;(items: List&lt;T&gt;) -&gt; List&lt;T&gt;</code></pre></div>
+<h3><code>list_concat</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn list_concat&lt;T: Copy&gt;(left: List&lt;T&gt;, right: List&lt;T&gt;) -&gt; List&lt;T&gt;</code></pre></div>
+<h3><code>list_reverse</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn list_reverse&lt;T: Copy&gt;(items: List&lt;T&gt;)</code></pre></div>
+<h3><code>list_slice</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn list_slice&lt;T: Copy&gt;(items: List&lt;T&gt;, start: int, end: int) -&gt; List&lt;T&gt;</code></pre></div>
+<h3><code>list_swap</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn list_swap&lt;T: Copy&gt;(items: List&lt;T&gt;, a: int, b: int)</code></pre></div>
+<h3><code>list_fill</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn list_fill&lt;T: Copy&gt;(count: int, value: T) -&gt; List&lt;T&gt;</code></pre></div>
+<h3><code>list_remove_at</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn list_remove_at&lt;T: Copy&gt;(items: List&lt;T&gt;, index: int)</code></pre></div>
+<h3><code>list_insert_at</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn list_insert_at&lt;T: Copy&gt;(items: List&lt;T&gt;, index: int, value: T)</code></pre></div>
+<h3><code>chunk_ints</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn chunk_ints(items: List&lt;int&gt;, size: int) -&gt; List&lt;int&gt;</code></pre></div>
+<h3><code>dedupe_ints</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn dedupe_ints(items: List&lt;int&gt;) -&gt; List&lt;int&gt;</code></pre></div>
+<h3><code>dedupe_strings</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn dedupe_strings(items: List&lt;str&gt;) -&gt; List&lt;str&gt;</code></pre></div>
+<h3><code>filter_greater</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn filter_greater(items: List&lt;int&gt;, threshold: int) -&gt; List&lt;int&gt;</code></pre></div>
+<h3><code>map_scale</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn map_scale(items: List&lt;int&gt;, factor: int) -&gt; List&lt;int&gt;</code></pre></div>
+<h3><code>list_index_of_str</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn list_index_of_str(items: List&lt;str&gt;, value: str) -&gt; int</code></pre></div>
+<h3><code>list_contains_str</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn list_contains_str(items: List&lt;str&gt;, value: str) -&gt; bool</code></pre></div>
+<h2><code>stdlib/std/collections/queue.pp</code></h2>
+<h3><code>queue_push</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn queue_push&lt;T: Copy&gt;(items: List&lt;T&gt;, value: T)</code></pre></div>
+<h3><code>queue_pop</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn queue_pop&lt;T: Copy&gt;(items: List&lt;T&gt;) -&gt; T</code></pre></div>
+<h3><code>queue_peek</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn queue_peek&lt;T: Copy&gt;(items: List&lt;T&gt;) -&gt; T</code></pre></div>
+<h3><code>queue_is_empty</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn queue_is_empty&lt;T: Copy&gt;(items: List&lt;T&gt;) -&gt; bool</code></pre></div>
+<h2><code>stdlib/std/collections/search.pp</code></h2>
+<h3><code>binary_search</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn binary_search(items: List&lt;int&gt;, value: int) -&gt; int</code></pre></div>
+<h3><code>lower_bound</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn lower_bound(items: List&lt;int&gt;, value: int) -&gt; int</code></pre></div>
+<h3><code>linear_search</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn linear_search(items: List&lt;int&gt;, value: int) -&gt; int</code></pre></div>
+<h3><code>contains_int</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn contains_int(items: List&lt;int&gt;, value: int) -&gt; bool</code></pre></div>
+<h3><code>count_int</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn count_int(items: List&lt;int&gt;, value: int) -&gt; int</code></pre></div>
+<h3><code>min_int_of</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn min_int_of(items: List&lt;int&gt;) -&gt; int</code></pre></div>
+<h3><code>max_int_of</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn max_int_of(items: List&lt;int&gt;) -&gt; int</code></pre></div>
+<h3><code>sum_ints</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn sum_ints(items: List&lt;int&gt;) -&gt; int</code></pre></div>
+<h2><code>stdlib/std/collections/set.pp</code></h2>
+<h3><code>set_new</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn set_new() -&gt; Map&lt;bool&gt;</code></pre></div>
+<h3><code>set_add</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn set_add(items: Map&lt;bool&gt;, value: str)</code></pre></div>
+<h3><code>set_has</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn set_has(items: Map&lt;bool&gt;, value: str) -&gt; bool</code></pre></div>
+<h3><code>set_remove</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn set_remove(items: Map&lt;bool&gt;, value: str) -&gt; bool</code></pre></div>
+<h3><code>set_size</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn set_size(items: Map&lt;bool&gt;) -&gt; int</code></pre></div>
+<h3><code>set_values</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn set_values(items: Map&lt;bool&gt;) -&gt; List&lt;str&gt;</code></pre></div>
+<h3><code>set_union</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn set_union(left: Map&lt;bool&gt;, right: Map&lt;bool&gt;) -&gt; Map&lt;bool&gt;</code></pre></div>
+<h3><code>set_intersection</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn set_intersection(left: Map&lt;bool&gt;, right: Map&lt;bool&gt;) -&gt; Map&lt;bool&gt;</code></pre></div>
+<h3><code>set_difference</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn set_difference(left: Map&lt;bool&gt;, right: Map&lt;bool&gt;) -&gt; Map&lt;bool&gt;</code></pre></div>
+<h2><code>stdlib/std/collections/sorting.pp</code></h2>
+<h3><code>sort_ints</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn sort_ints(items: List&lt;int&gt;)</code></pre></div>
+<h3><code>quicksort_ints</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn quicksort_ints(items: List&lt;int&gt;, low: int, high: int)</code></pre></div>
+<h3><code>insertion_sort_ints</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn insertion_sort_ints(items: List&lt;int&gt;, low: int, high: int)</code></pre></div>
+<h3><code>median_of_three</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn median_of_three(items: List&lt;int&gt;, low: int, high: int) -&gt; int</code></pre></div>
+<h3><code>sort_strings</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn sort_strings(items: List&lt;str&gt;)</code></pre></div>
+<h3><code>is_sorted_ints</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn is_sorted_ints(items: List&lt;int&gt;) -&gt; bool</code></pre></div>
+<h3><code>reverse_ints</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn reverse_ints(items: List&lt;int&gt;)</code></pre></div>
+<h2><code>stdlib/std/collections/stack.pp</code></h2>
+<h3><code>stack_push</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn stack_push&lt;T: Copy&gt;(items: List&lt;T&gt;, value: T)</code></pre></div>
+<h3><code>stack_pop</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn stack_pop&lt;T: Copy&gt;(items: List&lt;T&gt;) -&gt; T</code></pre></div>
+<h3><code>stack_peek</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn stack_peek&lt;T: Copy&gt;(items: List&lt;T&gt;) -&gt; T</code></pre></div>
+<h3><code>stack_is_empty</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn stack_is_empty&lt;T: Copy&gt;(items: List&lt;T&gt;) -&gt; bool</code></pre></div>
+<h2><code>stdlib/std/data/base64.pp</code></h2>
+<h3><code>base64_alphabet</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn base64_alphabet() -&gt; str</code></pre></div>
+<h3><code>base64_encode</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn base64_encode(data: bytes) -&gt; str</code></pre></div>
+<h3><code>base64_value</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn base64_value(code: int) -&gt; int</code></pre></div>
+<h3><code>base64_decode</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn base64_decode(text_value: str) -&gt; bytes</code></pre></div>
+<h3><code>base64_encode_text</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn base64_encode_text(text_value: str) -&gt; str</code></pre></div>
+<h3><code>base64_decode_text</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn base64_decode_text(text_value: str) -&gt; str</code></pre></div>
+<h2><code>stdlib/std/data/binary.pp</code></h2>
+<h3><code>write_u16_le</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn write_u16_le(buffer: bytes, value: int)</code></pre></div>
+<h3><code>write_u16_be</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn write_u16_be(buffer: bytes, value: int)</code></pre></div>
+<h3><code>write_u32_le</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn write_u32_le(buffer: bytes, value: int)</code></pre></div>
+<h3><code>write_u32_be</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn write_u32_be(buffer: bytes, value: int)</code></pre></div>
+<h3><code>read_u16_le</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn read_u16_le(buffer: bytes, offset: int) -&gt; int</code></pre></div>
+<h3><code>read_u16_be</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn read_u16_be(buffer: bytes, offset: int) -&gt; int</code></pre></div>
+<h3><code>read_u32_le</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn read_u32_le(buffer: bytes, offset: int) -&gt; int</code></pre></div>
+<h3><code>read_u32_be</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn read_u32_be(buffer: bytes, offset: int) -&gt; int</code></pre></div>
+<h3><code>write_varint</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn write_varint(buffer: bytes, value: int)</code></pre></div>
+<h3><code>read_varint</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn read_varint(buffer: bytes, offset: int) -&gt; int</code></pre></div>
+<h3><code>varint_size</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn varint_size(value: int) -&gt; int</code></pre></div>
+<h2><code>stdlib/std/data/checksum.pp</code></h2>
+<h3><code>crc32</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn crc32(data: bytes) -&gt; int</code></pre></div>
+<h3><code>fnv1a</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn fnv1a(data: bytes) -&gt; int</code></pre></div>
+<h3><code>mask32</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn mask32(value: int) -&gt; int</code></pre></div>
+<h3><code>fnv1a_text</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn fnv1a_text(value: str) -&gt; int</code></pre></div>
+<h3><code>adler32</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn adler32(data: bytes) -&gt; int</code></pre></div>
+<h3><code>checksum_text</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn checksum_text(value: str) -&gt; int</code></pre></div>
+<h2><code>stdlib/std/data/csv.pp</code></h2>
+<h3><code>csv_escape</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn csv_escape(field: str) -&gt; str</code></pre></div>
+<h3><code>csv_write_row</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn csv_write_row(fields: List&lt;str&gt;) -&gt; str</code></pre></div>
+<h3><code>csv_parse_row</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn csv_parse_row(line: str) -&gt; List&lt;str&gt;</code></pre></div>
+<h3><code>csv_write</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn csv_write(rows: List&lt;str&gt;) -&gt; str</code></pre></div>
+<h3><code>csv_field_count</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn csv_field_count(line: str) -&gt; int</code></pre></div>
+<h2><code>stdlib/std/data/hex.pp</code></h2>
+<h3><code>hex_digits</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn hex_digits() -&gt; str</code></pre></div>
+<h3><code>hex_encode</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn hex_encode(data: bytes) -&gt; str</code></pre></div>
+<h3><code>hex_decode</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn hex_decode(text_value: str) -&gt; bytes</code></pre></div>
+<h3><code>hex_value</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn hex_value(code: int) -&gt; int</code></pre></div>
+<h3><code>hex_of_int</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn hex_of_int(value: int) -&gt; str</code></pre></div>
+<h2><code>stdlib/std/data/ini.pp</code></h2>
+<h3><code>ini_parse</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn ini_parse(source: str) -&gt; Map&lt;str&gt;</code></pre></div>
+<h3><code>ini_get</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn ini_get(values: Map&lt;str&gt;, section: str, key: str) -&gt; str</code></pre></div>
+<h3><code>ini_has</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn ini_has(values: Map&lt;str&gt;, section: str, key: str) -&gt; bool</code></pre></div>
+<h3><code>ini_get_int</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn ini_get_int(values: Map&lt;str&gt;, section: str, key: str, fallback: int) -&gt; int</code></pre></div>
+<h3><code>ini_get_bool</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn ini_get_bool(values: Map&lt;str&gt;, section: str, key: str, fallback: bool) -&gt; bool</code></pre></div>
+<h2><code>stdlib/std/data/query.pp</code></h2>
+<h3><code>is_unreserved</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn is_unreserved(code: int) -&gt; bool</code></pre></div>
+<h3><code>url_encode</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn url_encode(value: str) -&gt; str</code></pre></div>
+<h3><code>url_decode</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn url_decode(value: str) -&gt; str</code></pre></div>
+<h3><code>hex_nibble</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn hex_nibble(code: int) -&gt; int</code></pre></div>
+<h3><code>query_encode</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn query_encode(values: Map&lt;str&gt;) -&gt; str</code></pre></div>
+<h3><code>query_decode</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn query_decode(query: str) -&gt; Map&lt;str&gt;</code></pre></div>
+<h2><code>stdlib/std/data/uuid.pp</code></h2>
+<h3><code>uuid4</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn uuid4() -&gt; str</code></pre></div>
+<h3><code>is_uuid</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn is_uuid(value: str) -&gt; bool</code></pre></div>
+<h3><code>uuid_nil</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn uuid_nil() -&gt; str</code></pre></div>
+<h2><code>stdlib/std/fs.pp</code></h2>
+<h3><code>fs_exists</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn fs_exists(path: String) -&gt; bool</code></pre></div>
+<h3><code>fs_read</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn fs_read(path: String) -&gt; String</code></pre></div>
+<h3><code>fs_write</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn fs_write(path: String, contents: String) -&gt; void</code></pre></div>
+<h3><code>fs_make_dir</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn fs_make_dir(path: String) -&gt; bool</code></pre></div>
+<h3><code>fs_remove</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn fs_remove(path: String) -&gt; bool</code></pre></div>
+<h3><code>fs_rename</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn fs_rename(source: String, destination: String) -&gt; bool</code></pre></div>
+<h3><code>fs_join</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn fs_join(left: String, right: String) -&gt; String</code></pre></div>
+<h2><code>stdlib/std/gui.pp</code></h2>
+<h3><code>gui_supported</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn gui_supported() -&gt; bool</code></pre></div>
+<p>Cross-platform native GUI helpers. gui_available() and gui_message(title, message) are compiler builtins. On Windows they use Win32. Linux and other POSIX hosts use X11/XWayland when it is installed and a display is available; headless programs receive false.</p>
+<h3><code>gui_alert</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn gui_alert(message: String) -&gt; bool</code></pre></div>
+<h2><code>stdlib/std/io.pp</code></h2>
+<h3><code>io_read_line</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn io_read_line() -&gt; String</code></pre></div>
+<h2><code>stdlib/std/math.pp</code></h2>
+<h3><code>minimum</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn minimum(left: i64, right: i64) -&gt; i64</code></pre></div>
+<h3><code>maximum</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn maximum(left: i64, right: i64) -&gt; i64</code></pre></div>
+<h3><code>clamp</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn clamp(value: i64, lower: i64, upper: i64) -&gt; i64</code></pre></div>
+<h3><code>gcd</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn gcd(left: i64, right: i64) -&gt; i64</code></pre></div>
+<h3><code>factorial</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn factorial(n: i64) -&gt; i64</code></pre></div>
+<h3><code>integer_power</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn integer_power(base: i64, exponent: i64) -&gt; i64</code></pre></div>
+<h2><code>stdlib/std/math_ext/bits.pp</code></h2>
+<h3><code>bit_get</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn bit_get(value: int, index: int) -&gt; bool</code></pre></div>
+<h3><code>bit_set</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn bit_set(value: int, index: int) -&gt; int</code></pre></div>
+<h3><code>bit_clear</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn bit_clear(value: int, index: int) -&gt; int</code></pre></div>
+<h3><code>bit_toggle</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn bit_toggle(value: int, index: int) -&gt; int</code></pre></div>
+<h3><code>popcount</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn popcount(value: int) -&gt; int</code></pre></div>
+<h3><code>leading_zeros</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn leading_zeros(value: int) -&gt; int</code></pre></div>
+<h3><code>trailing_zeros</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn trailing_zeros(value: int) -&gt; int</code></pre></div>
+<h3><code>is_power_of_two</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn is_power_of_two(value: int) -&gt; bool</code></pre></div>
+<h3><code>next_power_of_two</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn next_power_of_two(value: int) -&gt; int</code></pre></div>
+<h3><code>to_binary</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn to_binary(value: int) -&gt; str</code></pre></div>
+<h3><code>from_binary</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn from_binary(digits: str) -&gt; int</code></pre></div>
+<h3><code>rotate_left</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn rotate_left(value: int, amount: int) -&gt; int</code></pre></div>
+<h2><code>stdlib/std/math_ext/constants.pp</code></h2>
+<h3><code>pi</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn pi() -&gt; float</code></pre></div>
+<h3><code>tau</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn tau() -&gt; float</code></pre></div>
+<h3><code>half_pi</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn half_pi() -&gt; float</code></pre></div>
+<h3><code>e</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn e() -&gt; float</code></pre></div>
+<h3><code>sqrt2</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn sqrt2() -&gt; float</code></pre></div>
+<h3><code>sqrt3</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn sqrt3() -&gt; float</code></pre></div>
+<h3><code>golden_ratio</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn golden_ratio() -&gt; float</code></pre></div>
+<h3><code>ln2</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn ln2() -&gt; float</code></pre></div>
+<h3><code>ln10</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn ln10() -&gt; float</code></pre></div>
+<h3><code>int_max</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn int_max() -&gt; int</code></pre></div>
+<h3><code>int_min</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn int_min() -&gt; int</code></pre></div>
+<h3><code>epsilon</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn epsilon() -&gt; float</code></pre></div>
+<h3><code>degrees_to_radians</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn degrees_to_radians(degrees: float) -&gt; float</code></pre></div>
+<h3><code>radians_to_degrees</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn radians_to_degrees(radians: float) -&gt; float</code></pre></div>
+<h2><code>stdlib/std/math_ext/floats.pp</code></h2>
+<h3><code>float_min</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn float_min(a: float, b: float) -&gt; float</code></pre></div>
+<h3><code>float_max</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn float_max(a: float, b: float) -&gt; float</code></pre></div>
+<h3><code>float_clamp</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn float_clamp(value: float, low: float, high: float) -&gt; float</code></pre></div>
+<h3><code>nearly_equal</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn nearly_equal(a: float, b: float, tolerance: float) -&gt; bool</code></pre></div>
+<h3><code>lerp</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn lerp(a: float, b: float, t: float) -&gt; float</code></pre></div>
+<h3><code>inverse_lerp</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn inverse_lerp(low: float, high: float, value: float) -&gt; float</code></pre></div>
+<h3><code>remap</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn remap(value: float, from_low: float, from_high: float,</code></pre></div>
+<h3><code>smoothstep</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn smoothstep(low: float, high: float, value: float) -&gt; float</code></pre></div>
+<h3><code>round_to</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn round_to(value: float, places: int) -&gt; float</code></pre></div>
+<h3><code>truncate</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn truncate(value: float) -&gt; float</code></pre></div>
+<h3><code>float_sign</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn float_sign(value: float) -&gt; float</code></pre></div>
+<h2><code>stdlib/std/math_ext/integers.pp</code></h2>
+<h3><code>gcd</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn gcd(a: int, b: int) -&gt; int</code></pre></div>
+<h3><code>lcm</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn lcm(a: int, b: int) -&gt; int</code></pre></div>
+<h3><code>is_even</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn is_even(value: int) -&gt; bool</code></pre></div>
+<h3><code>is_odd</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn is_odd(value: int) -&gt; bool</code></pre></div>
+<h3><code>sign_of</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn sign_of(value: int) -&gt; int</code></pre></div>
+<h3><code>min_of</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn min_of(a: int, b: int) -&gt; int</code></pre></div>
+<h3><code>max_of</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn max_of(a: int, b: int) -&gt; int</code></pre></div>
+<h3><code>clamp</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn clamp(value: int, low: int, high: int) -&gt; int</code></pre></div>
+<h3><code>is_prime</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn is_prime(value: int) -&gt; bool</code></pre></div>
+<h3><code>next_prime</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn next_prime(value: int) -&gt; int</code></pre></div>
+<h3><code>primes_up_to</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn primes_up_to(limit: int) -&gt; List&lt;int&gt;</code></pre></div>
+<h3><code>factorial</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn factorial(value: int) -&gt; int</code></pre></div>
+<h3><code>pow_mod</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn pow_mod(base: int, exponent: int, modulus: int) -&gt; int</code></pre></div>
+<h3><code>int_pow</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn int_pow(base: int, exponent: int) -&gt; int</code></pre></div>
+<h3><code>int_sqrt</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn int_sqrt(value: int) -&gt; int</code></pre></div>
+<h3><code>digits_of</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn digits_of(value: int) -&gt; List&lt;int&gt;</code></pre></div>
+<h3><code>digit_sum</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn digit_sum(value: int) -&gt; int</code></pre></div>
+<h3><code>fibonacci</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn fibonacci(index: int) -&gt; int</code></pre></div>
+<h2><code>stdlib/std/math_ext/shuffling.pp</code></h2>
+<h3><code>shuffle_ints</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn shuffle_ints(items: List&lt;int&gt;)</code></pre></div>
+<h3><code>shuffle_strings</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn shuffle_strings(items: List&lt;str&gt;)</code></pre></div>
+<h3><code>choice_int</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn choice_int(items: List&lt;int&gt;) -&gt; int</code></pre></div>
+<h3><code>choice_str</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn choice_str(items: List&lt;str&gt;) -&gt; str</code></pre></div>
+<h3><code>sample_ints</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn sample_ints(items: List&lt;int&gt;, count: int) -&gt; List&lt;int&gt;</code></pre></div>
+<h3><code>random_range</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn random_range(low: float, high: float) -&gt; float</code></pre></div>
+<h3><code>random_bool</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn random_bool(probability: float) -&gt; bool</code></pre></div>
+<h3><code>random_gaussian</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn random_gaussian(mean_value: float, deviation: float) -&gt; float</code></pre></div>
+<h3><code>random_digits</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn random_digits(count: int) -&gt; str</code></pre></div>
+<h2><code>stdlib/std/math_ext/statistics.pp</code></h2>
+<h3><code>mean</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn mean(values: List&lt;float&gt;) -&gt; float</code></pre></div>
+<h3><code>sum_floats</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn sum_floats(values: List&lt;float&gt;) -&gt; float</code></pre></div>
+<h3><code>min_float_of</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn min_float_of(values: List&lt;float&gt;) -&gt; float</code></pre></div>
+<h3><code>max_float_of</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn max_float_of(values: List&lt;float&gt;) -&gt; float</code></pre></div>
+<h3><code>variance</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn variance(values: List&lt;float&gt;) -&gt; float</code></pre></div>
+<h3><code>sample_variance</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn sample_variance(values: List&lt;float&gt;) -&gt; float</code></pre></div>
+<h3><code>standard_deviation</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn standard_deviation(values: List&lt;float&gt;) -&gt; float</code></pre></div>
+<h3><code>median</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn median(values: List&lt;float&gt;) -&gt; float</code></pre></div>
+<h3><code>percentile</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn percentile(values: List&lt;float&gt;, fraction: float) -&gt; float</code></pre></div>
+<h3><code>range_of</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn range_of(values: List&lt;float&gt;) -&gt; float</code></pre></div>
+<h3><code>sort_floats_copy</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn sort_floats_copy(values: List&lt;float&gt;) -&gt; List&lt;float&gt;</code></pre></div>
+<h2><code>stdlib/std/math_ext/vector.pp</code></h2>
+<h3><code>Vec2</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">struct Vec2</code></pre></div>
+<h3><code>Vec3</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">struct Vec3</code></pre></div>
+<h3><code>vec2</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn vec2(x: float, y: float) -&gt; Vec2</code></pre></div>
+<h3><code>vec2_zero</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn vec2_zero() -&gt; Vec2</code></pre></div>
+<h3><code>vec2_add</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn vec2_add(a: Vec2, b: Vec2) -&gt; Vec2</code></pre></div>
+<h3><code>vec2_sub</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn vec2_sub(a: Vec2, b: Vec2) -&gt; Vec2</code></pre></div>
+<h3><code>vec2_scale</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn vec2_scale(a: Vec2, factor: float) -&gt; Vec2</code></pre></div>
+<h3><code>vec2_dot</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn vec2_dot(a: Vec2, b: Vec2) -&gt; float</code></pre></div>
+<h3><code>vec2_length</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn vec2_length(a: Vec2) -&gt; float</code></pre></div>
+<h3><code>vec2_length_squared</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn vec2_length_squared(a: Vec2) -&gt; float</code></pre></div>
+<h3><code>vec2_normalize</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn vec2_normalize(a: Vec2) -&gt; Vec2</code></pre></div>
+<h3><code>vec2_distance</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn vec2_distance(a: Vec2, b: Vec2) -&gt; float</code></pre></div>
+<h3><code>vec2_angle</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn vec2_angle(a: Vec2) -&gt; float</code></pre></div>
+<h3><code>vec2_lerp</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn vec2_lerp(a: Vec2, b: Vec2, t: float) -&gt; Vec2</code></pre></div>
+<h3><code>vec2_rotate</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn vec2_rotate(a: Vec2, radians: float) -&gt; Vec2</code></pre></div>
+<h3><code>vec2_to_text</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn vec2_to_text(a: Vec2) -&gt; str</code></pre></div>
+<h3><code>vec3</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn vec3(x: float, y: float, z: float) -&gt; Vec3</code></pre></div>
+<h3><code>vec3_zero</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn vec3_zero() -&gt; Vec3</code></pre></div>
+<h3><code>vec3_add</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn vec3_add(a: Vec3, b: Vec3) -&gt; Vec3</code></pre></div>
+<h3><code>vec3_sub</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn vec3_sub(a: Vec3, b: Vec3) -&gt; Vec3</code></pre></div>
+<h3><code>vec3_scale</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn vec3_scale(a: Vec3, factor: float) -&gt; Vec3</code></pre></div>
+<h3><code>vec3_dot</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn vec3_dot(a: Vec3, b: Vec3) -&gt; float</code></pre></div>
+<h3><code>vec3_cross</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn vec3_cross(a: Vec3, b: Vec3) -&gt; Vec3</code></pre></div>
+<h3><code>vec3_length</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn vec3_length(a: Vec3) -&gt; float</code></pre></div>
+<h3><code>vec3_normalize</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn vec3_normalize(a: Vec3) -&gt; Vec3</code></pre></div>
+<h3><code>vec3_distance</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn vec3_distance(a: Vec3, b: Vec3) -&gt; float</code></pre></div>
+<h3><code>vec3_to_text</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn vec3_to_text(a: Vec3) -&gt; str</code></pre></div>
+<h2><code>stdlib/std/net/https.pp</code></h2>
+<h3><code>https_get</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn https_get(url: String) -&gt; String</code></pre></div>
+<p>Verified HTTPS helpers. The primitive operations are compiler builtins backed by the system libcurl runtime. Certificate and hostname verification are always enabled, redirects remain HTTPS-only, and plain HTTP URLs are rejected.</p>
+<h3><code>https_get_with_headers</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn https_get_with_headers(url: String, headers: String) -&gt; String</code></pre></div>
+<h3><code>https_post</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn https_post(url: String, body: String, content_type: String) -&gt; String</code></pre></div>
+<h3><code>https_put</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn https_put(url: String, body: String, content_type: String) -&gt; String</code></pre></div>
+<h3><code>https_delete</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn https_delete(url: String) -&gt; String</code></pre></div>
+<h3><code>https_head</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn https_head(url: String) -&gt; String</code></pre></div>
+<h3><code>https_ok</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn https_ok() -&gt; bool</code></pre></div>
+<h3><code>https_get_async</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">async fn https_get_async(url: String) -&gt; String</code></pre></div>
+<h3><code>https_post_async</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">async fn https_post_async(url: String, body: String, content_type: String) -&gt; String</code></pre></div>
+<h2><code>stdlib/std/nums.pp</code></h2>
+<h3><code>nums_copy</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn nums_copy(values: nums) -&gt; nums</code></pre></div>
+<h3><code>nums_contains</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn nums_contains(values: nums, needle: i64) -&gt; bool</code></pre></div>
+<h3><code>nums_index_of</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn nums_index_of(values: nums, needle: i64) -&gt; i64</code></pre></div>
+<h3><code>nums_count</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn nums_count(values: nums, needle: i64) -&gt; i64</code></pre></div>
+<h3><code>nums_reverse</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn nums_reverse(values: nums) -&gt; nums</code></pre></div>
+<h3><code>nums_equal</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn nums_equal(left: nums, right: nums) -&gt; bool</code></pre></div>
+<h2><code>stdlib/std/option.pp</code></h2>
+<h3><code>option_is_some</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn option_is_some&lt;T&gt;(value: Option&lt;T&gt;) -&gt; bool</code></pre></div>
+<p>Generic Option helpers. Option&lt;T&gt; itself is a prelude algebraic enum.</p>
+<h3><code>option_is_none</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn option_is_none&lt;T&gt;(value: Option&lt;T&gt;) -&gt; bool</code></pre></div>
+<h3><code>option_unwrap_or</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn option_unwrap_or&lt;T: Copy&gt;(value: Option&lt;T&gt;, fallback: T) -&gt; T</code></pre></div>
+<h2><code>stdlib/std/result.pp</code></h2>
+<h3><code>result_is_ok</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn result_is_ok&lt;T, E&gt;(value: Result&lt;T, E&gt;) -&gt; bool</code></pre></div>
+<p>Generic Result helpers. Result&lt;T,E&gt; itself is a prelude algebraic enum.</p>
+<h3><code>result_is_error</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn result_is_error&lt;T, E&gt;(value: Result&lt;T, E&gt;) -&gt; bool</code></pre></div>
+<h3><code>result_unwrap_or</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn result_unwrap_or&lt;T: Copy, E&gt;(value: Result&lt;T, E&gt;, fallback: T) -&gt; T</code></pre></div>
+<h2><code>stdlib/std/stats.pp</code></h2>
+<h3><code>stats_sum</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn stats_sum(values: nums) -&gt; i64</code></pre></div>
+<h3><code>stats_mean</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn stats_mean(values: nums) -&gt; f64</code></pre></div>
+<h3><code>stats_min</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn stats_min(values: nums) -&gt; i64</code></pre></div>
+<h3><code>stats_max</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn stats_max(values: nums) -&gt; i64</code></pre></div>
+<h3><code>stats_sorted</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn stats_sorted(values: nums) -&gt; nums</code></pre></div>
+<h2><code>stdlib/std/system.pp</code></h2>
+<h3><code>system_platform</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn system_platform() -&gt; String</code></pre></div>
+<h3><code>system_current_dir</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn system_current_dir() -&gt; String</code></pre></div>
+<h3><code>system_env_has</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn system_env_has(name: String) -&gt; bool</code></pre></div>
+<h3><code>system_env_or</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn system_env_or(name: String, fallback: String) -&gt; String</code></pre></div>
+<h2><code>stdlib/std/system_ext/cli.pp</code></h2>
+<h3><code>Args</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">struct Args</code></pre></div>
+<h3><code>parse_args</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn parse_args() -&gt; Args</code></pre></div>
+<h3><code>parse_arg_list</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn parse_arg_list(items: List&lt;str&gt;) -&gt; Args</code></pre></div>
+<h3><code>has_flag</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn has_flag(parsed: Args, name: str) -&gt; bool</code></pre></div>
+<h3><code>get_option</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn get_option(parsed: Args, name: str, fallback: str) -&gt; str</code></pre></div>
+<h3><code>get_option_int</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn get_option_int(parsed: Args, name: str, fallback: int) -&gt; int</code></pre></div>
+<h3><code>positional_count</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn positional_count(parsed: Args) -&gt; int</code></pre></div>
+<h3><code>positional_at</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn positional_at(parsed: Args, index: int, fallback: str) -&gt; str</code></pre></div>
+<h2><code>stdlib/std/system_ext/console.pp</code></h2>
+<h3><code>escape</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn escape(code: str) -&gt; str</code></pre></div>
+<h3><code>reset</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn reset() -&gt; str</code></pre></div>
+<h3><code>bold</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn bold(value: str) -&gt; str</code></pre></div>
+<h3><code>dim</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn dim(value: str) -&gt; str</code></pre></div>
+<h3><code>italic</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn italic(value: str) -&gt; str</code></pre></div>
+<h3><code>underline</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn underline(value: str) -&gt; str</code></pre></div>
+<h3><code>red</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn red(value: str) -&gt; str</code></pre></div>
+<h3><code>green</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn green(value: str) -&gt; str</code></pre></div>
+<h3><code>yellow</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn yellow(value: str) -&gt; str</code></pre></div>
+<h3><code>blue</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn blue(value: str) -&gt; str</code></pre></div>
+<h3><code>magenta</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn magenta(value: str) -&gt; str</code></pre></div>
+<h3><code>cyan</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn cyan(value: str) -&gt; str</code></pre></div>
+<h3><code>gray</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn gray(value: str) -&gt; str</code></pre></div>
+<h3><code>on_red</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn on_red(value: str) -&gt; str</code></pre></div>
+<h3><code>on_green</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn on_green(value: str) -&gt; str</code></pre></div>
+<h3><code>rgb</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn rgb(value: str, r: int, g: int, b: int) -&gt; str</code></pre></div>
+<h3><code>clear_screen</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn clear_screen()</code></pre></div>
+<h3><code>move_cursor</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn move_cursor(row: int, column: int)</code></pre></div>
+<h3><code>hide_cursor</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn hide_cursor()</code></pre></div>
+<h3><code>show_cursor</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn show_cursor()</code></pre></div>
+<h3><code>progress_bar</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn progress_bar(fraction: float, width: int) -&gt; str</code></pre></div>
+<h2><code>stdlib/std/system_ext/files.pp</code></h2>
+<h3><code>read_lines</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn read_lines(path: str) -&gt; List&lt;str&gt;</code></pre></div>
+<h3><code>write_lines</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn write_lines(path: str, lines: List&lt;str&gt;)</code></pre></div>
+<h3><code>append_line</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn append_line(path: str, line: str)</code></pre></div>
+<h3><code>count_lines</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn count_lines(path: str) -&gt; int</code></pre></div>
+<h3><code>read_lines_non_empty</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn read_lines_non_empty(path: str) -&gt; List&lt;str&gt;</code></pre></div>
+<h3><code>copy_file</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn copy_file(source: str, destination: str)</code></pre></div>
+<h3><code>ensure_parent_dir</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn ensure_parent_dir(path: str) -&gt; bool</code></pre></div>
+<h3><code>write_text_atomic</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn write_text_atomic(path: str, content: str)</code></pre></div>
+<h3><code>read_text_or</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn read_text_or(path: str, fallback: str) -&gt; str</code></pre></div>
+<h2><code>stdlib/std/system_ext/log.pp</code></h2>
+<h3><code>level_debug</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn level_debug() -&gt; int</code></pre></div>
+<h3><code>level_info</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn level_info() -&gt; int</code></pre></div>
+<h3><code>level_warn</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn level_warn() -&gt; int</code></pre></div>
+<h3><code>level_error</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn level_error() -&gt; int</code></pre></div>
+<h3><code>level_name</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn level_name(level: int) -&gt; str</code></pre></div>
+<h3><code>log_at</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn log_at(threshold: int, level: int, message: str)</code></pre></div>
+<h3><code>debug</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn debug(threshold: int, message: str)</code></pre></div>
+<h3><code>info</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn info(threshold: int, message: str)</code></pre></div>
+<h3><code>warn</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn warn(threshold: int, message: str)</code></pre></div>
+<h3><code>error</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn error(threshold: int, message: str)</code></pre></div>
+<h3><code>log_stamped</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn log_stamped(threshold: int, level: int, message: str)</code></pre></div>
+<h3><code>format_two</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn format_two(value: int) -&gt; str</code></pre></div>
+<h3><code>log_to_file</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn log_to_file(path: str, level: int, message: str)</code></pre></div>
+<h2><code>stdlib/std/system_ext/paths.pp</code></h2>
+<h3><code>join_all</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn join_all(parts: List&lt;str&gt;) -&gt; str</code></pre></div>
+<h3><code>without_extension</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn without_extension(path: str) -&gt; str</code></pre></div>
+<h3><code>with_extension</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn with_extension(path: str, extension: str) -&gt; str</code></pre></div>
+<h3><code>is_absolute</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn is_absolute(path: str) -&gt; bool</code></pre></div>
+<h3><code>normalize_separators</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn normalize_separators(path: str) -&gt; str</code></pre></div>
+<h3><code>split_path</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn split_path(path: str) -&gt; List&lt;str&gt;</code></pre></div>
+<h3><code>has_extension</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn has_extension(path: str, extension: str) -&gt; bool</code></pre></div>
+<h3><code>walk_files</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn walk_files(root: str, max_depth: int) -&gt; List&lt;str&gt;</code></pre></div>
+<h3><code>walk_into</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn walk_into(directory: str, depth_left: int, found: List&lt;str&gt;)</code></pre></div>
+<h2><code>stdlib/std/system_ext/timer.pp</code></h2>
+<h3><code>Stopwatch</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">struct Stopwatch</code></pre></div>
+<h3><code>stopwatch_new</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn stopwatch_new() -&gt; Stopwatch</code></pre></div>
+<h3><code>stopwatch_start</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn stopwatch_start(watch: Stopwatch) -&gt; Stopwatch</code></pre></div>
+<h3><code>stopwatch_stop</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn stopwatch_stop(watch: Stopwatch) -&gt; Stopwatch</code></pre></div>
+<h3><code>stopwatch_elapsed</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn stopwatch_elapsed(watch: Stopwatch) -&gt; int</code></pre></div>
+<h3><code>stopwatch_reset</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn stopwatch_reset() -&gt; Stopwatch</code></pre></div>
+<h3><code>time_rounds</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn time_rounds(rounds: int) -&gt; List&lt;int&gt;</code></pre></div>
+<h3><code>elapsed_since</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn elapsed_since(start: int) -&gt; int</code></pre></div>
+<h3><code>format_elapsed</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn format_elapsed(milliseconds: int) -&gt; str</code></pre></div>
+<h2><code>stdlib/std/testing.pp</code></h2>
+<h3><code>expect_int</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn expect_int(actual: i64, expected: i64) -&gt; void</code></pre></div>
+<h3><code>expect_bool</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn expect_bool(actual: bool, expected: bool) -&gt; void</code></pre></div>
+<h3><code>expect_str</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn expect_str(actual: String, expected: String) -&gt; void</code></pre></div>
+<h2><code>stdlib/std/text.pp</code></h2>
+<h3><code>text_starts_with</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn text_starts_with(value: String, prefix: String) -&gt; bool</code></pre></div>
+<h3><code>text_ends_with</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn text_ends_with(value: String, suffix: String) -&gt; bool</code></pre></div>
+<h3><code>text_trim</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn text_trim(value: String) -&gt; String</code></pre></div>
+<h3><code>text_repeat</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn text_repeat(value: String, count: i64) -&gt; String</code></pre></div>
+<h3><code>text_is_utf8</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn text_is_utf8(value: String) -&gt; bool</code></pre></div>
+<h3><code>text_codepoints</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn text_codepoints(value: String) -&gt; i64</code></pre></div>
+<h2><code>stdlib/std/text/casing.pp</code></h2>
+<h3><code>to_snake_case</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn to_snake_case(value: str) -&gt; str</code></pre></div>
+<h3><code>to_kebab_case</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn to_kebab_case(value: str) -&gt; str</code></pre></div>
+<h3><code>to_camel_case</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn to_camel_case(value: str) -&gt; str</code></pre></div>
+<h3><code>to_pascal_case</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn to_pascal_case(value: str) -&gt; str</code></pre></div>
+<h3><code>to_screaming_snake_case</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn to_screaming_snake_case(value: str) -&gt; str</code></pre></div>
+<h2><code>stdlib/std/text/distance.pp</code></h2>
+<h3><code>levenshtein</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn levenshtein(a: str, b: str) -&gt; int</code></pre></div>
+<h3><code>similarity</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn similarity(a: str, b: str) -&gt; float</code></pre></div>
+<h3><code>hamming</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn hamming(a: str, b: str) -&gt; int</code></pre></div>
+<h3><code>common_prefix</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn common_prefix(a: str, b: str) -&gt; str</code></pre></div>
+<h3><code>min_len</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn min_len(a: str, b: str) -&gt; int</code></pre></div>
+<h3><code>closest_match</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn closest_match(value: str, options: List&lt;str&gt;) -&gt; str</code></pre></div>
+<h2><code>stdlib/std/text/format.pp</code></h2>
+<h3><code>format_int</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn format_int(value: int, width: int) -&gt; str</code></pre></div>
+<h3><code>format_zero_padded</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn format_zero_padded(value: int, width: int) -&gt; str</code></pre></div>
+<h3><code>format_fixed</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn format_fixed(value: float, places: int) -&gt; str</code></pre></div>
+<h3><code>format_percent</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn format_percent(value: float, places: int) -&gt; str</code></pre></div>
+<h3><code>format_bytes</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn format_bytes(count: int) -&gt; str</code></pre></div>
+<h3><code>format_duration</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn format_duration(milliseconds: int) -&gt; str</code></pre></div>
+<h3><code>repeat_to_width</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn repeat_to_width(fill: str, width: int) -&gt; str</code></pre></div>
+<h2><code>stdlib/std/text/strings.pp</code></h2>
+<h3><code>is_empty</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn is_empty(text_value: str) -&gt; bool</code></pre></div>
+<h3><code>is_blank</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn is_blank(text_value: str) -&gt; bool</code></pre></div>
+<h3><code>char_code</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn char_code(text_value: str, index: int) -&gt; int</code></pre></div>
+<h3><code>substring</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn substring(text_value: str, start: int, count: int) -&gt; str</code></pre></div>
+<h3><code>left</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn left(text_value: str, count: int) -&gt; str</code></pre></div>
+<h3><code>right</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn right(text_value: str, count: int) -&gt; str</code></pre></div>
+<h3><code>reverse</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn reverse(text_value: str) -&gt; str</code></pre></div>
+<h3><code>count_occurrences</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn count_occurrences(text_value: str, part: str) -&gt; int</code></pre></div>
+<h3><code>trim_start</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn trim_start(text_value: str) -&gt; str</code></pre></div>
+<h3><code>trim_end</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn trim_end(text_value: str) -&gt; str</code></pre></div>
+<h3><code>is_space</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn is_space(code: int) -&gt; bool</code></pre></div>
+<h3><code>is_digit</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn is_digit(code: int) -&gt; bool</code></pre></div>
+<h3><code>is_upper</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn is_upper(code: int) -&gt; bool</code></pre></div>
+<h3><code>is_lower</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn is_lower(code: int) -&gt; bool</code></pre></div>
+<h3><code>is_alpha</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn is_alpha(code: int) -&gt; bool</code></pre></div>
+<h3><code>is_alnum</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn is_alnum(code: int) -&gt; bool</code></pre></div>
+<h3><code>is_hex_digit</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn is_hex_digit(code: int) -&gt; bool</code></pre></div>
+<h3><code>capitalize</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn capitalize(text_value: str) -&gt; str</code></pre></div>
+<h3><code>title_case</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn title_case(text_value: str) -&gt; str</code></pre></div>
+<h3><code>starts_with_any</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn starts_with_any(text_value: str, options: List&lt;str&gt;) -&gt; bool</code></pre></div>
+<h3><code>split_lines</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn split_lines(text_value: str) -&gt; List&lt;str&gt;</code></pre></div>
+<h3><code>split_whitespace</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn split_whitespace(text_value: str) -&gt; List&lt;str&gt;</code></pre></div>
+<h3><code>strip_prefix</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn strip_prefix(text_value: str, prefix: str) -&gt; str</code></pre></div>
+<h3><code>strip_suffix</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn strip_suffix(text_value: str, suffix: str) -&gt; str</code></pre></div>
+<h3><code>center</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn center(text_value: str, width: int, fill: str) -&gt; str</code></pre></div>
+<h3><code>equals_ignore_case</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn equals_ignore_case(left_value: str, right_value: str) -&gt; bool</code></pre></div>
+<h2><code>stdlib/std/text/wrap.pp</code></h2>
+<h3><code>wrap_text</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn wrap_text(value: str, width: int) -&gt; List&lt;str&gt;</code></pre></div>
+<h3><code>wrap_to_text</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn wrap_to_text(value: str, width: int) -&gt; str</code></pre></div>
+<h3><code>indent</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn indent(value: str, prefix: str) -&gt; str</code></pre></div>
+<h3><code>dedent</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn dedent(value: str) -&gt; str</code></pre></div>
+<h3><code>truncate_text</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn truncate_text(value: str, width: int, ellipsis: str) -&gt; str</code></pre></div>
+<h2><code>stdlib/std/time.pp</code></h2>
+<h3><code>elapsed_ms</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn elapsed_ms(start: i64) -&gt; i64</code></pre></div>
+<h3><code>deadline_reached</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn deadline_reached(deadline: i64) -&gt; bool</code></pre></div>
+<h3><code>deadline_after_ms</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn deadline_after_ms(duration: i64) -&gt; i64</code></pre></div>
+<h3><code>delay_ms</code></h3>
+<div class="code-wrap" data-runnable="true"><div class="code-bar"><span>punpun</span><button class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-punpun">fn delay_ms(duration: i64) -&gt; void</code></pre></div></article><div class="pager"><span></span><span></span></div><footer>Examples are written for PunPun 1.3.0. Planned behavior is labeled rather than presented as shipped.</footer></main></div><script src="assets/site.js"></script></body></html>
