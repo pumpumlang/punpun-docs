@@ -60,6 +60,26 @@ class LearningDocumentationTests(unittest.TestCase):
                                             text=True, capture_output=True)
                     self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
+    def test_marked_doctest_blocks_compile_and_run(self):
+        compiler = find_compiler()
+        fence = re.compile(r"^```(?:punpun|pp)\s+(doctest|doctest-run)\s*$\n(.*?)^```\s*$",
+                           re.I | re.M | re.S)
+        found = 0
+        for page in sorted([*CONTENT.rglob('*.md'), *(ROOT / 'reference').rglob('*.md')]):
+            for mode, source in fence.findall(page.read_text(encoding='utf-8')):
+                found += 1
+                if not compiler:
+                    continue
+                with self.subTest(page=page.name, block=found):
+                    with tempfile.TemporaryDirectory() as td:
+                        path = Path(td) / 'main.pp'
+                        path.write_text(source, encoding='utf-8')
+                        action = 'run' if mode.lower() == 'doctest-run' else 'check'
+                        result = subprocess.run([compiler, action, str(path)],
+                                                cwd=td, text=True, capture_output=True, timeout=60)
+                        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertGreater(found, 0, 'expected at least one marked doctest block')
+
     def test_every_page_has_a_title(self):
         for page in sorted(CONTENT.glob('*.md')):
             with self.subTest(page=page.name):
