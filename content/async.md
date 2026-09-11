@@ -1,6 +1,6 @@
 # Async, task groups, and cancellation
 
-PunPun 1.3 keeps the `async fn` / `await` model and structured task groups.
+PunPun 1.4.5 keeps the `async fn` / `await` model and structured task groups.
 Calling an async function returns a typed task immediately.
 
 ```pp

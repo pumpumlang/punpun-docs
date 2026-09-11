@@ -18,6 +18,10 @@ if score > 10 {
 for i in 0..3 {
     say(i);
 }
+
+for value in values {
+    say(value);
+}
 ```
 
 ## Runnable example
@@ -44,6 +48,7 @@ Save as `control.pp` and run `pp run control.pp`.
 - Using `=` when you mean comparison. Assignment and comparison are different operations.
 - Forgetting braces around a control-flow body.
 - Assuming `0..4` includes `4`. Treat the upper bound as exclusive in ordinary range loops.
+- Expecting sequence iteration over every container. PunPun 1.4.5 supports `nums`, `List<T>`, and `Slice<T>`; `Map<V>` and string characters are not yet iterable.
 
 ## Next steps
 

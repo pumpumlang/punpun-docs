@@ -1,6 +1,6 @@
 # Standard Library
 
-PunPun 1.3 ships 47 source modules across collections, data encoding/parsing,
+PunPun 1.4.5 ships 47 source modules across collections, data encoding/parsing,
 math, text, system, filesystem, async, HTTPS, GUI, testing, time, options, and
 results. The generated API reference is the exhaustive signature list.
 

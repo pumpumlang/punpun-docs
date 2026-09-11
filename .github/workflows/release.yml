@@ -1,0 +1,32 @@
+name: release
+
+on:
+  push:
+    branches: [main]
+    paths: [VERSION]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Validate documentation
+        run: |
+          python3 build.py --check
+          python3 -m unittest discover -s tests -v
+      - name: Publish matching documentation release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version=$(tr -d '\r\n' < VERSION)
+          tag="v$version"
+          notes="reference/releases/$version.md"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            gh release edit "$tag" --title "PunPun documentation $version" --notes-file "$notes"
+          else
+            gh release create "$tag" --target "$GITHUB_SHA" --title "PunPun documentation $version" --notes-file "$notes"
+          fi

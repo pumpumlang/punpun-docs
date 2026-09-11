@@ -4,7 +4,7 @@ Use structs for value-shaped data and objects when identity, construction, and m
 
 ## Overview
 
-A `struct` is value-oriented and stack-friendly. An `object` has identity-oriented semantics and supports constructors and methods. A `contract` states behavior a type must provide.
+A `struct` is value-oriented and stack-friendly. An `object` has identity-oriented semantics and supports constructors and methods. A `contract` states behavior a type must provide and, since PunPun 1.4, can also be used as a value type for dynamic dispatch.
 
 ## Syntax
 
@@ -63,11 +63,21 @@ launch {
 
 Save as `objects.pp` and run `pp run objects.pp`.
 
+Different object types that meet the same contract can share one list:
+
+```punpun
+let shapes = list<Shape>();
+list_push(shapes, Square(4));
+list_push(shapes, Rect(3, 5));
+for shape in shapes { say(shape.name()); }
+```
+
 ## Common mistakes
 
 - Treating `struct` and `object` as interchangeable. Pick based on value semantics versus identity/method behavior.
 - Accessing a `private` field from outside its object.
 - Declaring a contract method but forgetting to implement it on a type that `meets` that contract.
+- Assuming contract dispatch is constant-time. In 1.4.5 it uses a comparison chain and is linear in the number of implementors at a call site.
 
 ## Next steps
 

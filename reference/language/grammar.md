@@ -1,4 +1,4 @@
-# PunPun 1.3 grammar overview
+# PunPun 1.4.5 grammar overview
 
 The stable grammar uses structured brace blocks and semicolon-terminated
 ordinary statements. PPC also accepts the 0.4 migration dialect so existing

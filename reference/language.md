@@ -1,9 +1,9 @@
-# PunPun 1.3 language reference
+# PunPun 1.4.5 language reference
 
 PunPun is a statically typed compiled language. PPC's default backend emits
 portable C; direct x86-64 and register-bytecode backends use the same semantic
 frontend. This page describes the stable 1.0 language as implemented by PunPun
-1.3. The older `launch: ... done` dialect remains accepted for migration.
+1.4.5. The older `launch: ... done` dialect remains accepted for migration.
 
 ## Program structure
 
@@ -65,6 +65,11 @@ Conditions are `bool`. Integer arithmetic is checked. Calls and operands are
 evaluated left-to-right; `and` and `or` short-circuit. Non-void functions must
 conservatively return a value on every path.
 
+Functions are first-class values in 1.4.5. A `fn(T) -> R` value may name a
+module function or a non-capturing function literal. Sequence `for` loops walk
+`nums`, `List<T>`, and `Slice<T>` and lower through the same indexed-loop path
+used by every backend.
+
 ## Objects, structs, and contracts
 
 ```punpun
@@ -91,9 +96,10 @@ launch {
 ```
 
 Objects have identity-oriented runtime storage. Structs are value-oriented.
-Fields and methods can be public or private. Contracts currently provide
-compile-time conformance for concrete types; contract-typed values and mature
-dynamic dispatch are not yet implemented.
+Fields and methods can be public or private. Contracts provide compile-time
+conformance and may be used as value and list element types. Contract calls use
+runtime object type identity; the current comparison-chain dispatch is linear
+in the number of implementors at that call site.
 
 ## References, raw pointers, move, and drop
 
@@ -165,9 +171,10 @@ The 0.6 language foundation executes inferred and explicit generic calls,
 deterministically monomorphizes generic types and methods, checks algebraic
 enum patterns for reachability/exhaustiveness, and supports `Option<T>`,
 `Result<T,E>`, postfix `?`, ownership/borrow checks and lexical destruction for
-supported owning values. PunPun 1.3 lowers all three backends from PPC's typed
-HIR and verified MIR. Contract-typed dynamic dispatch and closures/first-class
-functions remain later work. The authoritative implementation summary is
+supported owning values. PunPun 1.4.5 lowers all three backends from PPC's typed
+HIR and verified MIR. Contract-typed dynamic dispatch and non-capturing
+first-class functions are implemented; capturing closures remain later work.
+The authoritative implementation summary is
 in [`COMPLETION_REPORT.md`](../COMPLETION_REPORT.md).
 
 Normative 0.6 rules and implementation status are in [`spec/0.6/`](../spec/0.6/).

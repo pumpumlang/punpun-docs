@@ -1,4 +1,4 @@
-# PunPun 1.3 compiler architecture
+# PunPun 1.4.5 compiler architecture
 
 PPC is the canonical PunPun compiler. It is a C++20 program with a C11 runtime
 and one shared frontend for every backend and editor query.

@@ -27,7 +27,7 @@ these are the details behind them.
 ## Releases
 
 Release notes are kept per version in [`releases/`](releases/): the current
-release is [`1.3`](releases/1.3.md), preceded by [`1.0`](releases/1.0.md),
+release is [`1.4.5`](releases/1.4.5.md), preceded by [`1.3`](releases/1.3.md), [`1.0`](releases/1.0.md),
 [`0.9.0-dev.5`](releases/0.9.0-dev.5.md) and
 [`0.5.0-beta`](releases/0.5.0-beta.md).
 

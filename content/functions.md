@@ -20,6 +20,19 @@ Call it like any other expression:
 let total = add(20, 22);
 ```
 
+PunPun 1.4 also lets functions be values. Use `fn(T) -> R` as the type and a
+function name or non-capturing function literal as the value:
+
+```punpun
+fn apply(work: fn(i64) -> i64, value: i64) -> i64 {
+    return work(value);
+}
+
+let answer = apply(fn(value: i64) -> i64 { return value * 2; }, 21);
+```
+
+Function literals do not capture surrounding local variables in 1.4.5.
+
 ## Runnable example
 
 ```punpun
@@ -44,6 +57,7 @@ Save as `functions.pp` and run `pp run functions.pp`.
 - Returning a value that does not match the declared return type.
 - Forgetting `-> Type` on a function that returns a value.
 - Mutating an argument just because its name looks mutable. Mutability and references are explicit in PunPun.
+- Referring to an outer local from a function literal. Pass the value as a parameter until capturing closures are implemented.
 
 ## Next steps
 

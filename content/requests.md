@@ -1,6 +1,6 @@
 # Verified HTTPS
 
-PunPun 1.3 provides HTTPS in the runtime and through `std.net.https`. Programs
+PunPun 1.4.5 provides HTTPS in the runtime and through `std.net.https`. Programs
 that do not call it pay no HTTP startup or link-time dependency cost because
 libcurl is loaded dynamically.
 

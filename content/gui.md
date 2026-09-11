@@ -1,6 +1,6 @@
 # GUI
 
-PunPun 1.3 includes a small native GUI foundation.
+PunPun 1.4.5 includes a small native GUI foundation.
 
 ```punpun
 import std.gui
