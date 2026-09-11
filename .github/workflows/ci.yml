@@ -16,6 +16,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - name: Check content structure and examples
+        run: python3 tests/test_content.py -v
       - name: Verify the committed site matches the sources
         run: python3 build.py --check
       - name: Verify the build is reproducible
