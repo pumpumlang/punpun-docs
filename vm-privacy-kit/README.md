@@ -145,7 +145,7 @@ Rollback refuses VMs without the kit's marker, running VMs, and any path under
 
 * **Mullvad hides your IP from websites, not from Mullvad.** Mullvad sees your
   real IP (or your ISP's) and when you connect. Every config in your ZIP uses
-  one device key (Mullvad device "Good Goose"), so all servers see the same
+  one device key, so every server sees the same
   account device.
 * **Hysteria moves trust to the server's operator.** Websites see the Hysteria
   server's IP. Whoever runs or rents that server can see where the traffic
