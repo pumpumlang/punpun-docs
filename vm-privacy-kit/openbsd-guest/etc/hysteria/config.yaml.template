@@ -1,0 +1,72 @@
+# /etc/hysteria/config.yaml -- Hysteria 2 client (OpenBSD guest)
+#
+# Replace EVERY __PLACEHOLDER__ below. `privctl hy2 check-config` lists the ones left;
+# the service refuses to start while any remain. Field names follow the
+# official client configuration (https://v2.hysteria.network/docs/advanced/Full-Client-Config/)
+# and were checked against the app/v2.12.3 source.
+#
+# Keep this file mode 0640 root:_hysteria -- it contains your credentials.
+
+# Server address. Use an IP LITERAL if you can (e.g. 203.0.113.10:443 or
+# [2001:db8::10]:443). A hostname also works, but then `privctl lock tunnel` pins it
+# in /etc/hosts, because in tunnel mode DNS itself goes through the tunnel.
+# Port hopping ("IP:20000-50000") is supported.
+server: __SERVER_ADDRESS__:__SERVER_PORT__
+
+# Authentication (the server's auth.password / userpass "user:pass" string).
+auth: __AUTH_PASSWORD__
+
+tls:
+  # Name on the server's certificate. Required when `server` is an IP literal.
+  sni: __TLS_SNI__
+  insecure: false
+  # Certificate settings -- pick ONE that matches your server (verified against
+  # the v2.12.3 source: pinSHA256 is checked IN ADDITION to normal CA checks):
+  #  a) Public CA certificate (e.g. Let's Encrypt/ACME on the server):
+  #       nothing more to set.
+  #  b) Self-signed certificate (recommended way): copy the server's certificate
+  #     (PEM) to /etc/hysteria/server-ca.crt and set
+  #       ca: /etc/hysteria/server-ca.crt
+  #  c) Self-signed, pin only: set insecure: true AND
+  #       pinSHA256: __CERT_SHA256_FINGERPRINT__
+  #     (value from: openssl x509 -noout -fingerprint -sha256 -in server.crt)
+  #     Never use insecure: true without pinSHA256.
+
+# Only if your server has obfuscation enabled -- must match the server exactly.
+# obfs:
+#   type: salamander
+#   salamander:
+#     password: __OBFS_PASSWORD__
+
+# Start even when the server is unreachable and reconnect on demand, so boot
+# never hangs on the tunnel and a failed link recovers by itself.
+lazy: true
+
+# Optional: your real line speed improves throughput (Brutal congestion control).
+# bandwidth:
+#   up: 20 mbps
+#   down: 100 mbps
+
+# --- Local listeners -------------------------------------------------------
+# They bind to the internal-LAN address 10.77.0.1 so both this VM and the
+# Debian services VM (10.77.0.2) can use them. pf only admits lo0 and
+# 10.77.0.2 to these ports in tunnel mode. Add username/password if you want
+# an extra layer:  socks5: { listen: ..., username: ..., password: ... }
+socks5:
+  listen: 10.77.0.1:1080
+
+http:
+  listen: 10.77.0.1:8080
+
+# DNS over the tunnel for Pi-hole's upstream. UDP and TCP (TCP is needed for
+# large answers). REMOTE_DNS_RESOLVER is a resolver reachable FROM THE SERVER,
+# e.g. a resolver running on the server itself (127.0.0.1:53) or a public one
+# you trust. Pi-hole on 10.77.0.2 uses 10.77.0.1#5353 as its upstream once you
+# run `services-mode.sh tunnel` there.
+udpForwarding:
+  - listen: 10.77.0.1:5353
+    remote: __REMOTE_DNS_RESOLVER__:53
+    timeout: 20s
+tcpForwarding:
+  - listen: 10.77.0.1:5353
+    remote: __REMOTE_DNS_RESOLVER__:53

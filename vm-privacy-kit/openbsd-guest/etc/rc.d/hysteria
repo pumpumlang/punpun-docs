@@ -1,0 +1,25 @@
+#!/bin/ksh
+#
+# rc.d(8) script for the Hysteria 2 client (installed by the openbsd-guest kit).
+#   rcctl start hysteria | rcctl enable hysteria   (enable = start at boot)
+
+# shellcheck disable=SC2034  # variables are read by rc.subr
+daemon="/usr/local/bin/hysteria"
+daemon_flags="client --config /etc/hysteria/config.yaml --disable-update-check"
+daemon_user="_hysteria"
+daemon_logger="daemon.info"
+
+# shellcheck disable=SC1091
+. /etc/rc.d/rc.subr
+
+# shellcheck disable=SC2034
+rc_bg=YES
+# shellcheck disable=SC2034
+rc_reload=NO
+
+rc_pre() {
+	# Refuse to start with unfilled __PLACEHOLDER__ values.
+	/usr/local/sbin/privctl hy2 check-config >/dev/null
+}
+
+rc_cmd "$1"
