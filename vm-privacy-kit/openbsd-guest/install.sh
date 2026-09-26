@@ -160,7 +160,15 @@ else
 	done
 	[ -n "$build" ] || die "need about 1.5 GB free in /home, /usr/local, /var or /tmp for the Go build"
 	rm -rf "$build"; mkdir -p "$build/tmp"
-	git -c advice.detachedHead=false clone --quiet --depth 1 --branch "$HY_TAG" "$HY_REPO" "$build/src"
+	# Retry with a stall timeout: a single slow path through a VPN server must
+	# not hang for minutes (a stalled connect waits ~5 min by default).
+	n=0
+	until timeout 180 git -c advice.detachedHead=false -c http.lowSpeedLimit=1000 -c http.lowSpeedTime=30 \
+	    clone --quiet --depth 1 --branch "$HY_TAG" "$HY_REPO" "$build/src"; do
+		n=$((n + 1)); rm -rf "$build/src"
+		[ $n -lt 3 ] || die "cannot clone $HY_REPO via Mullvad; try another server (privctl mullvad use de) and rerun"
+		warn "clone attempt $n failed; retrying in 5s"; sleep 5
+	done
 	got=$(git -C "$build/src" rev-parse HEAD)
 	[ "$got" = "$HY_COMMIT" ] || die "tag $HY_TAG resolves to $got, expected $HY_COMMIT -- refusing to build"
 	ok "source commit verified: $got"
