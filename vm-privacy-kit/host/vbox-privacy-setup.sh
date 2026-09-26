@@ -109,7 +109,7 @@ mr() {  # mr VM KEY
     { line=$0; eq=index(line,"="); if (!eq) next
       lhs=substr(line,1,eq-1); rhs=substr(line,eq+1)
       gsub(/^"|"$/,"",lhs); if (lhs!=k) next
-      gsub(/^"|"$/,"",rhs); print rhs; exit }'
+      gsub(/^"|"$/,"",rhs); if (!done) print rhs; done=1 }'
 }
 mr_flush() { MR_CACHE=(); }
 
@@ -167,8 +167,7 @@ check_prereqs() {
   if grep -Eqw 'vmx|svm' /proc/cpuinfo; then ok "CPU virtualization extensions visible"
   else warn "no vmx/svm flag in /proc/cpuinfo -- enable VT-x/AMD-V in firmware for 64-bit guests"; fi
 
-  vbm list ostypes | grep -Eq '^ID:[[:space:]]+OpenBSD_64$' \
-    || die "this VirtualBox does not know the OS type OpenBSD_64"
+  has_ostype OpenBSD_64 || die "this VirtualBox does not know the OS type OpenBSD_64 (see: VBoxManage list ostypes)"
   ok "OS type OpenBSD_64 available"
 
   local p
@@ -185,10 +184,18 @@ check_space() {  # check_space DIR NEED_MB   (read-only: measures the nearest ex
   ok "${avail} MB free in $dir"
 }
 
+# VirtualBox 7.0 prints "ID:   OpenBSD_64"; 7.1+ prints
+# "ID / Description: OpenBSD_64 -- OpenBSD (64-bit)". Accept both.
+has_ostype() {
+  # Capture first: with pipefail, `... | grep -q` can fail on SIGPIPE even when it matches.
+  local types; types="$(vbm list ostypes)" || return 1
+  grep -Eq "^ID( / Description)?:[[:space:]]+$1([[:space:]]|\$)" <<<"$types"
+}
+
 debian_ostype() {
   local t
   for t in Debian13_64 Debian12_64 Debian_64; do
-    if vbm list ostypes | grep -Eq "^ID:[[:space:]]+$t\$"; then printf '%s' "$t"; return; fi
+    if has_ostype "$t"; then printf '%s' "$t"; return; fi
   done
   die "no 64-bit Debian OS type known to this VirtualBox"
 }
@@ -237,13 +244,13 @@ check_collisions() {
         die "internal network '$LAN_INTNET' is already used by VM '$vname' -- set LAN_INTNET to another name"
       fi
     done
-    if mr_all "$uuid" | grep -Eq "^\"?Forwarding\([0-9]+\)\"?=\"[^,]*,tcp,[^,]*,$port,"; then
+    if grep -Eq "^\"?Forwarding\([0-9]+\)\"?=\"[^,]*,tcp,[^,]*,$port," <<<"$(mr_all "$uuid")"; then
       die "host port $port is already forwarded by VM '$vname' -- set ${role^^}_SSH_HOST_PORT"
     fi
   done < <(list_vms)
   ok "MAC $(mac_fmt "$mac"), internal network '$LAN_INTNET' and host port $port are free"
 
-  if [[ -z $our_uuid ]] && command -v ss >/dev/null 2>&1 && ss -Hltn "sport = :$port" 2>/dev/null | grep -q .; then
+  if [[ -z $our_uuid ]] && command -v ss >/dev/null 2>&1 && [[ -n "$(ss -Hltn "sport = :$port" 2>/dev/null)" ]]; then
     die "something on the host already listens on TCP port $port -- set ${role^^}_SSH_HOST_PORT"
   fi
 }
@@ -341,7 +348,7 @@ fetch_debian_iso() {
   if command -v gpg >/dev/null 2>&1; then
     fetch "$DEBIAN_ISO_BASE/SHA512SUMS.sign" "$sums.sign" || warn "could not fetch SHA512SUMS.sign"
     if [[ -s $sums.sign ]] && gpg --batch --status-fd 1 --verify "$sums.sign" "$sums" 2>/dev/null \
-        | grep -Eq "^\[GNUPG:\] VALIDSIG .*$DEBIAN_CD_KEY_FPR( |\$)"; then
+        | grep -E "^\[GNUPG:\] VALIDSIG .*$DEBIAN_CD_KEY_FPR( |\$)" >/dev/null; then
       ok "SHA512SUMS signed by Debian CD signing key $DEBIAN_CD_KEY_FPR"
     else
       warn "GPG signature not verified (Debian CD key not in your keyring?). To add it:"
@@ -394,7 +401,7 @@ create_vm() {
   if [[ $DRY_RUN -eq 1 ]] || ! is_complete "$name"; then   # cable state is yours to change later
     run vbm modifyvm "$name" --cable-connected1 "$cable"
   fi
-  if [[ $DRY_RUN -eq 1 ]] || ! mr "$name" "Forwarding(0)" | grep -q '^ssh,'; then
+  if [[ $DRY_RUN -eq 1 ]] || [[ "$(mr "$name" "Forwarding(0)")" != ssh,* ]]; then
     run vbm modifyvm "$name" --nat-pf1 "ssh,tcp,127.0.0.1,$port,,22"
   fi
   # NIC2: internal network shared only with the other kit VM.
